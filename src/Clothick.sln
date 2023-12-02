@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clothick.Api", "Clothick.Api\Clothick.Api.csproj", "{37F78AC9-96A6-49B9-A167-17C78C7736B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clothick.Application", "Clothick.Application\Clothick.Application.csproj", "{D5A894C6-C7D7-4502-91A2-971B2FADB91E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clothick.Contracts", "Clothick.Contracts\Clothick.Contracts.csproj", "{FF2A855D-84DB-4C35-8360-495550A3D10F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clothick.Domain", "Clothick.Domain\Clothick.Domain.csproj", "{7E9A0D79-B51D-4897-A4C2-1EEDBC1B650B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clothick.Infrastructure", "Clothick.Infrastructure\Clothick.Infrastructure.csproj", "{14CF2336-13F0-45EA-B71D-6AB9BAEEC4FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37F78AC9-96A6-49B9-A167-17C78C7736B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F78AC9-96A6-49B9-A167-17C78C7736B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F78AC9-96A6-49B9-A167-17C78C7736B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F78AC9-96A6-49B9-A167-17C78C7736B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A894C6-C7D7-4502-91A2-971B2FADB91E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A894C6-C7D7-4502-91A2-971B2FADB91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A894C6-C7D7-4502-91A2-971B2FADB91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A894C6-C7D7-4502-91A2-971B2FADB91E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2A855D-84DB-4C35-8360-495550A3D10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2A855D-84DB-4C35-8360-495550A3D10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2A855D-84DB-4C35-8360-495550A3D10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2A855D-84DB-4C35-8360-495550A3D10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E9A0D79-B51D-4897-A4C2-1EEDBC1B650B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E9A0D79-B51D-4897-A4C2-1EEDBC1B650B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E9A0D79-B51D-4897-A4C2-1EEDBC1B650B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E9A0D79-B51D-4897-A4C2-1EEDBC1B650B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14CF2336-13F0-45EA-B71D-6AB9BAEEC4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14CF2336-13F0-45EA-B71D-6AB9BAEEC4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14CF2336-13F0-45EA-B71D-6AB9BAEEC4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14CF2336-13F0-45EA-B71D-6AB9BAEEC4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
