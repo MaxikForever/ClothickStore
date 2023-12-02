@@ -16,4 +16,11 @@
     <ProjectReference Include="..\Clothick.Infrastructure\Clothick.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\" />
+    <Folder Include="Extensions\Mappers\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
 </Project>
