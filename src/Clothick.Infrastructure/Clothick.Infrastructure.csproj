@@ -2,11 +2,11 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Clothick.Application\Clothick.Application.csproj"/>
+        <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Persistence\EntityConfigurations\"/>
-        <Folder Include="Persistence\Repositories\"/>
     </ItemGroup>
 
     <ItemGroup>
