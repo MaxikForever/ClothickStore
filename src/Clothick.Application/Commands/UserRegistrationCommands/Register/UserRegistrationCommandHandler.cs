@@ -15,12 +15,10 @@ public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCo
         _userManager = userManager;
     }
 
-    public async Task<IdentityResult> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
+    public Task<IdentityResult> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
     {
         var user = request.ToEntity();
 
-        await _userManager.CreateAsync(user, request.Password);
-
-        return IdentityResult.Success;
+        return _userManager.CreateAsync(user, request.Password);
     }
 }

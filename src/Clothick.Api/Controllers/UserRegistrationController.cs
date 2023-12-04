@@ -1,5 +1,7 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
+using Clothick.Api.Validators;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,15 +12,25 @@ namespace Clothick.Api.Controllers;
 public class UserRegistrationController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IValidatorFactory _validatorFactory;
 
-    public UserRegistrationController(IMediator mediator)
+    public UserRegistrationController(IMediator mediator, IValidatorFactory validatorFactory)
     {
         _mediator = mediator;
+        _validatorFactory = validatorFactory;
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Post(UserRegistrationDto userDTo)
     {
+        var validator = _validatorFactory.GetValidator<UserRegistrationDto>();
+        var validationResult = await validator.ValidateAsync(userDTo);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
+        }
+
         var newUser = userDTo.ToCommand();
 
         var result = await _mediator.Send(newUser);

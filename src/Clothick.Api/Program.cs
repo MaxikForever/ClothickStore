@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDatabase(builder.Configuration);
     builder.Services.AddRepositories();
     builder.Services.AddMediator();
+    builder.Services.AddValidationServices();
 }
 
 var app = builder.Build();
