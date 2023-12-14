@@ -1,19 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.8.1" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+        <PackageReference Include="Swashbuckle.AspNetCore"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj" />
-    <ProjectReference Include="..\Clothick.Application\Clothick.Application.csproj" />
-    <ProjectReference Include="..\Clothick.Infrastructure\Clothick.Infrastructure.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj"/>
+        <ProjectReference Include="..\Clothick.Application\Clothick.Application.csproj"/>
+        <ProjectReference Include="..\Clothick.Infrastructure\Clothick.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Middleware\"/>
+    </ItemGroup>
 
 </Project>
