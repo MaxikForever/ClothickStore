@@ -43,4 +43,9 @@ public class UserRegistrationController : ControllerBase
 
         return BadRequest(result.Errors);
     }
+
+    [HttpGet("GetUser")] public IActionResult GetMyUser()
+    {
+        return Ok(new { Name = "Max", SecondName = "Cbum" });
+    } 
 }
