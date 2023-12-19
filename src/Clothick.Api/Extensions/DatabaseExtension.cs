@@ -1,5 +1,6 @@
 using Clothick.Domain.Entities;
 using Clothick.Infrastructure.Persistence;
+using Clothick.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,5 +22,7 @@ public static class DatabaseExtension
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+        serices.AddHostedService<DatabaseMigrationService>();
     }
 }
