@@ -60,6 +60,10 @@ public class UserRegistrationController : ControllerBase
             return BadRequest(validationResult.Errors.Select(e =>  new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
         }
 
+        var loginCommand = loginDto.ToCommand();
 
+        var token = _mediator.Send(loginCommand);
+
+        return Ok(new { JwtToken = token });
     }
 }
