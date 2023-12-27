@@ -15,5 +15,5 @@ public class UserRegistrationDto
 
     public string Password { get; set; }
 
-    public string PassowrdConfirmation { get; set; }
+    public string PasswordConfirmation { get; set; }
 }

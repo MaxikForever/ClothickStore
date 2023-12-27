@@ -39,7 +39,7 @@ public class UserRegistrationDtoValidator : AbstractValidator<UserRegistrationDt
             .WithMessage(AuthentificationValidationErrorMessages.PasswordRequiresSpecialCharacter)
             .NotEqual(x => x.UserName).WithMessage(AuthentificationValidationErrorMessages.PasswordCannotBeUserName);
 
-        RuleFor(x => x.PassowrdConfirmation)
+        RuleFor(x => x.PasswordConfirmation)
             .NotEmpty().WithMessage(AuthentificationValidationErrorMessages.PasswordConfirmationRequired)
             .Equal(x => x.Password).WithMessage(AuthentificationValidationErrorMessages.PasswordConfirmationMustMatch);
     }

@@ -21,17 +21,20 @@ public class UserRegistrationController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Post(UserRegistrationDto userDTo)
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> Post(UserRegistrationDto registrationDto)
     {
         var validator = _validatorFactory.GetValidator<UserRegistrationDto>();
-        var validationResult = await validator.ValidateAsync(userDTo);
+        var validationResult = await validator.ValidateAsync(registrationDto);
 
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
         }
 
-        var newUser = userDTo.ToCommand();
+        var newUser = registrationDto.ToCommand();
 
         var result = await _mediator.Send(newUser);
 
@@ -44,8 +47,19 @@ public class UserRegistrationController : ControllerBase
         return BadRequest(result.Errors);
     }
 
-    [HttpGet("GetUser")] public IActionResult GetMyUser()
+    [HttpPost("login")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> Login(UserLoginDto loginDto)
     {
-        return Ok(new { Name = "Max", SecondName = "Cbum" });
-    } 
+        var validator = _validatorFactory.GetValidator<UserLoginDto>();
+        var validationResult = validator.Validate(loginDto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors.Select(e =>  new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
+        }
+
+
+    }
 }
