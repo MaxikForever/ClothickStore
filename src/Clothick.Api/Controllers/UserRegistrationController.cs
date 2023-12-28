@@ -57,9 +57,9 @@ public class UserRegistrationController : ControllerBase
         var validationResult = validator.Validate(loginDto);
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors.Select(e =>  new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
+            return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
         }
 
-
+        return Ok();
     }
 }
