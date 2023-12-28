@@ -1,4 +1,5 @@
 using Clothick.Api.Extensions;
+using Clothick.Api.Middleware;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
