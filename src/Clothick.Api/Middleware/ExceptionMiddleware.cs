@@ -23,19 +23,28 @@ public class ExceptionMiddleware
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong {ex}");
-            await HandleException(context, ex);
+            await HandleExceptionAsync(context, ex);
         }
     }
 
-    private Task HandleException(HttpContext context, Exception ex)
+    private Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        var statusCode = (int)HttpStatusCode.InternalServerError;
+        var message = "Internal Server Error";
+
+        if (ex.InnerException is BaseException baseException)
+        {
+            statusCode = baseException.StatusCode;
+            message = baseException.Message;
+        }
+
+        context.Response.StatusCode = statusCode;
 
         return context.Response.WriteAsync(new ErrorDetails
         {
-            StatusCode = context.Response.StatusCode,
-            Message = ex.Message
+            StatusCode = statusCode,
+            Message = message
         }.ToString());
     }
 }
