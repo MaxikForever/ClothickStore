@@ -1,5 +1,6 @@
 using Clothick.Application.Commands.UserRegistrationCommands.Login;
 using Clothick.Contracts.Interfaces.Services;
+using Clothick.Domain.CustomExceptions;
 using Clothick.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +26,7 @@ public class UserLoginCommandHandler : IRequestHandler<UserLoginCommand, string>
         var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, true, false);
         if (!result.Succeeded)
         {
-            throw new Exception("User login failed");
+            throw new InvalidUserLoginException("User login failed due to an invalid name or password.");
         }
 
         var token = await _tokenService.GenerateTokenAsync(await _userManager.FindByNameAsync(request.Username));
