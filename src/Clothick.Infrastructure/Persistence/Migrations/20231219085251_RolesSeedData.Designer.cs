@@ -3,6 +3,7 @@ using System;
 using Clothick.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Clothick.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231219085251_RolesSeedData")]
+    partial class RolesSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,29 +122,6 @@ namespace Clothick.Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("18881182-cc38-4d19-aa0e-9f2b18327927"),
-                            ConcurrencyStamp = "b8537807-e1a3-4e12-8016-13360edd9b4d",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = new Guid("21bf22da-e47f-419f-b4b3-37ccf4953a9e"),
-                            ConcurrencyStamp = "47764919-95f5-4555-88b7-6f8fa52c9d3b",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("6e98ca2a-6bb5-4fc8-aba3-50bf497c938c"),
-                            ConcurrencyStamp = "173c96c3-6fb3-4c59-ac94-8efafd20a132",
-                            Name = "Guest",
-                            NormalizedName = "GUEST"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
