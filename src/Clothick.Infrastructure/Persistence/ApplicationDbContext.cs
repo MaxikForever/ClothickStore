@@ -18,4 +18,12 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new IdentityRolesConfiguration());
     }
+
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Color> Colors => Set<Color>();
+    public DbSet<Product> Products => Set<Product>();
+    public DbSet<ProductImage> ProductImages => Set<ProductImage>();
+    public DbSet<ProductRating> ProductRatings => Set<ProductRating>();
+    public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+    public DbSet<Size> Sizes => Set<Size>();
 }

@@ -1,0 +1,11 @@
+namespace Clothick.Domain.Entities;
+
+public class Category
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    // Navigation property for related products
+    public virtual ICollection<Product> Products { get; set; }
+}
