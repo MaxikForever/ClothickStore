@@ -8,5 +8,6 @@ public static class ServicesExtension
     public static void AddCustomServices(this IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IProductService, ProductService>();
     }
 }

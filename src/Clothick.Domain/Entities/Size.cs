@@ -4,8 +4,8 @@ public class Size
 {
     public int Id { get; set; }
 
-    public string SizeName { get; set; }
+    public string Name { get; set; }
 
     // Navigation property for related product variants
-    public virtual ICollection<ProductVariant> ProductVariants { get; set; }
+    public  ICollection<ProductVariant> ProductVariants { get; set; }
 }

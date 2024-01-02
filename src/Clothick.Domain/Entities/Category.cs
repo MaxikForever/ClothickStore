@@ -7,5 +7,5 @@ public class Category
     public string Name { get; set; }
 
     // Navigation property for related products
-    public virtual ICollection<Product> Products { get; set; }
+    public  ICollection<Product> Products { get; set; }
 }

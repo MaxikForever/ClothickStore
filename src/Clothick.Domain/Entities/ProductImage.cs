@@ -9,5 +9,5 @@ public class ProductImage
     public string ImageURL { get; set; }
 
     // Navigation property
-    public virtual Product Product { get; set; }
+    public  Product Product { get; set; }
 }

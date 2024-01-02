@@ -20,4 +20,8 @@
         <ProjectReference Include="..\Clothick.Infrastructure\Clothick.Infrastructure.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="StaticFiles\" />
+    </ItemGroup>
+
 </Project>

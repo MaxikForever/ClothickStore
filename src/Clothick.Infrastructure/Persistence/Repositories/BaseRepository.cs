@@ -38,7 +38,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         ApplicationDbContext.Set<T>().Remove(entity);
     }
 
-    public Task SaveAsync(T entity)
+    public Task SaveAsync()
     {
         return ApplicationDbContext.SaveChangesAsync();
     }

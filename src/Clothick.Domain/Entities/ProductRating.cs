@@ -8,10 +8,10 @@ public class ProductRating
 
     public decimal StarRating { get; set; }
 
-    public string Comment { get; set; }
-
     public DateTime DatePosted { get; set; }
 
     // Navigation property
-    public virtual Product Product { get; set; }
+    public Product Product { get; set; }
+
+    public ICollection<Comment> Comments { get; set; }
 }

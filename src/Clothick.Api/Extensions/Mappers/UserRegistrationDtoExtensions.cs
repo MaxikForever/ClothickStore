@@ -1,6 +1,5 @@
 using Clothick.Api.DTO;
 using Clothick.Application.Commands.UserRegistrationCommands;
-using Clothick.Domain.Entities;
 
 namespace Clothick.Api.Extensions.Mappers;
 

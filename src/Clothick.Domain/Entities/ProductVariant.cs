@@ -15,7 +15,7 @@ public class ProductVariant
     public decimal? DiscountedPrice { get; set; } // Nullable for cases with no discount
 
     // Navigation properties
-    public virtual Product Product { get; set; }
-    public virtual Size Size { get; set; }
-    public virtual Color Color { get; set; }
+    public Product Product { get; set; }
+    public  Size Size { get; set; }
+    public  Color Color { get; set; }
 }

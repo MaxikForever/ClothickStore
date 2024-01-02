@@ -3,6 +3,7 @@ using System;
 using Clothick.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Clothick.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231230181124_nameFix")]
+    partial class nameFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,36 +56,6 @@ namespace Clothick.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
-                });
-
-            modelBuilder.Entity("Clothick.Domain.Entities.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DatePosted")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ProductRatingId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductRatingId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
@@ -154,6 +126,10 @@ namespace Clothick.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("timestamp with time zone");
@@ -324,22 +300,22 @@ namespace Clothick.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4ce3060c-955c-4837-8c4e-6c612fe397e0"),
-                            ConcurrencyStamp = "bc135502-2395-4ba8-bcd4-4c8a6fb1f21f",
+                            Id = new Guid("2393755b-ed67-47c4-88c6-f21bdde2ee04"),
+                            ConcurrencyStamp = "532fe33c-169b-4c1b-babb-6afd22a1385c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = new Guid("d6df8670-962a-45f2-855e-ec27240bf3fc"),
-                            ConcurrencyStamp = "b9134c3e-93a2-4587-aef4-a57f410aa3fe",
+                            Id = new Guid("ae4b8944-8c6b-46aa-9293-b1a68d538e00"),
+                            ConcurrencyStamp = "e5778620-7811-48ad-a50d-955db2527edb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("be491b30-55cd-40c5-9096-0355c7d0a438"),
-                            ConcurrencyStamp = "2d249b02-575a-48a2-9688-977a9b5ff34f",
+                            Id = new Guid("a403cc96-4649-42e8-a07d-16a29c7a9c6e"),
+                            ConcurrencyStamp = "b456723f-4821-4a73-b8e5-5df929ba1610",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -446,25 +422,6 @@ namespace Clothick.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Clothick.Domain.Entities.Comment", b =>
-                {
-                    b.HasOne("Clothick.Domain.Entities.ProductRating", "ProductRating")
-                        .WithMany("Comments")
-                        .HasForeignKey("ProductRatingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Clothick.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProductRating");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
@@ -595,11 +552,6 @@ namespace Clothick.Infrastructure.Migrations
                     b.Navigation("ProductRatings");
 
                     b.Navigation("ProductVariants");
-                });
-
-            modelBuilder.Entity("Clothick.Domain.Entities.ProductRating", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Size", b =>

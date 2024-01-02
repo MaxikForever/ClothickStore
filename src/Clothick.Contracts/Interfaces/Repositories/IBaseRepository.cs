@@ -14,5 +14,5 @@ public interface IBaseRepository<T>
 
     void DeleteAsync(T entity);
 
-    Task SaveAsync(T entity);
+    Task SaveAsync();
 }

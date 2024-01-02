@@ -20,8 +20,8 @@ public class Product
 
     // Navigation properties
 
-    public virtual Category Category { get; set; }
-    public virtual ICollection<ProductImage> ProductImages { get; set; }
-    public virtual ICollection<ProductVariant> ProductVariants { get; set; }
-    public virtual ICollection<ProductRating> ProductRatings { get; set; }
+    public Category Category { get; set; }
+    public ICollection<ProductImage> ProductImages { get; set; }
+    public ICollection<ProductVariant> ProductVariants { get; set; }
+    public ICollection<ProductRating> ProductRatings { get; set; }
 }
