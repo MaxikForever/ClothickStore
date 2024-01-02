@@ -12,8 +12,6 @@ public class Product
 
     public decimal Price { get; set; }
 
-    public string SKU { get; set; }
-
     public DateTime DateAdded { get; set; }
 
     public DateTime LastUpdated { get; set; }

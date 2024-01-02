@@ -28,7 +28,6 @@ public static class UploadProductCommandMappings
             BrandName = request.Product.BrandName,
             Description = request.Product.Description,
             Price = request.Product.Price,
-            SKU = request.Product.SKU,
             CategoryId = request.Product.CategoryId,
             ProductImages = request.Product.ProductImages.Select(url => new ProductImage { ImageURL = url.ImageURL })
                 .ToList(),
@@ -37,7 +36,8 @@ public static class UploadProductCommandMappings
                 SizeID = v.SizeID,
                 ColorID = v.ColorID,
                 Stock = v.Stock,
-                DiscountedPrice = v.DiscountedPrice
+                DiscountedPrice = v.DiscountedPrice,
+                SKU = v.SKU
             }).ToList()
         };
     }

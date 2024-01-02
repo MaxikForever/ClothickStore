@@ -14,8 +14,10 @@ public class ProductVariant
 
     public decimal? DiscountedPrice { get; set; } // Nullable for cases with no discount
 
+    public string SKU { get; set; }
+
     // Navigation properties
     public Product Product { get; set; }
-    public  Size Size { get; set; }
-    public  Color Color { get; set; }
+    public Size Size { get; set; }
+    public Color Color { get; set; }
 }
