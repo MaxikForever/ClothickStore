@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddValidationServices();
     builder.Services.AddAuthenticationService(builder.Configuration);
     builder.Services.AddCustomServices();
+    builder.Services.ConfigureServices();
 }
 
 var app = builder.Build();

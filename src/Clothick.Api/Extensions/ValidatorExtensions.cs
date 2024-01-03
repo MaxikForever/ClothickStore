@@ -11,6 +11,8 @@ public static class ValidatorExtensions
         services.AddScoped<IValidatorFactory, ValidatorFactory>();
         services.AddScoped<IValidator<UserRegistrationDto>, UserRegistrationDtoValidator>();
         services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
-
+        services.AddScoped<IValidator<ProductUploadDto>, ProductUploadDtoValidator>();
+        services.AddScoped<IValidator<UploadProductVariantModel>, UploadProductVariantModelValidator>();
+        services.AddScoped<IValidator<CreateColorDto>, CreateColorDtoValidator>();
     }
 }

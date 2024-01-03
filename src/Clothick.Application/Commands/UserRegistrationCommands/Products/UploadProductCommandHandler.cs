@@ -30,4 +30,6 @@ public class UploadProductCommandHandler : IRequestHandler<UploadProductCommand,
 
         return savedProduct;
     }
+
+
 }

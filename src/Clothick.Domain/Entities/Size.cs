@@ -7,5 +7,5 @@ public class Size
     public string Name { get; set; }
 
     // Navigation property for related product variants
-    public  ICollection<ProductVariant> ProductVariants { get; set; }
+    public ICollection<ProductVariant> ProductVariants { get; set; }
 }
