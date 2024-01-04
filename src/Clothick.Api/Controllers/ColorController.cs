@@ -2,9 +2,11 @@ using Clothick.Api.DTO;
 using Clothick.Application.Commands.UserRegistrationCommands.Colors;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clothick.Api.Controllers;
+
 
 [ApiController]
 [Route("[controller]")]
@@ -18,6 +20,7 @@ public class ColorController : ControllerBase
         _mediator = mediator;
         _validatorFactory = validatorFactory;
     }
+
 
     [HttpPost]
     public async Task<ActionResult> CreateColor([FromBody] CreateColorDto colorDto)
@@ -35,6 +38,6 @@ public class ColorController : ControllerBase
 
         var result = await _mediator.Send(new AddColorCommand(colorName));
 
-        return Ok(result);
+        return Ok(new { Name = result});
     }
 }

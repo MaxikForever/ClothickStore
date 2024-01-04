@@ -5,6 +5,7 @@ using Clothick.Contracts.Interfaces.Repositories;
 using Clothick.Domain.Entities;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clothick.Api.Controllers;
@@ -21,6 +22,7 @@ public class ProductController : ControllerBase
         _mediator = mediator;
         _validatorFactory = validatorFactory;
     }
+
 
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] ProductUploadDto productDto)
