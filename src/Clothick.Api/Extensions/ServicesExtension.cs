@@ -9,5 +9,7 @@ public static class ServicesExtension
     {
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IColorService, ColorService>();
+        services.AddScoped<IProductVariantService, ProductVariantService>();
     }
 }

@@ -14,7 +14,6 @@ public static class ProductUploadDtoExtensions
                 BrandName = dto.BrandName,
                 Description = dto.Description,
                 Price = dto.Price,
-                SKU = dto.SKU,
                 CategoryId = dto.CategoryId,
                 ProductImages = dto.ImageURLs.Select(url => new ProductImage { ImageURL = url.ToString() })
                     .ToList(),
@@ -23,7 +22,8 @@ public static class ProductUploadDtoExtensions
                     SizeID = v.SizeId,
                     ColorID = v.ColorId,
                     Stock = v.Stock,
-                    DiscountedPrice = v.DiscountedPrice
+                    DiscountedPrice = v.DiscountedPrice,
+                    SKU = v.SKU,
                 }).ToList()
             });
     }

@@ -16,7 +16,8 @@ public static class GetProductDtoExtensions
             Size = variant.Size.Name,
             Color = variant.Color.Name,
             Stock = variant.Stock,
-            DiscountedPrice = variant.DiscountedPrice
+            DiscountedPrice = variant.DiscountedPrice,
+            SKU = variant.SKU,
         }).ToList();
 
         var productRatings = product.ProductRatings.Select(pr => pr);
@@ -35,7 +36,6 @@ public static class GetProductDtoExtensions
             BrandName = product.BrandName,
             Description = product.Description,
             Price = product.Price,
-            SKU = product.SKU,
             CategoryName = product.Category.Name,
             ProductVariants = productVariantsDto,
             ImageURLs = product.ProductImages.Select(url => url.ImageURL).ToList(),
