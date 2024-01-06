@@ -14,5 +14,8 @@ public static class ValidatorExtensions
         services.AddScoped<IValidator<ProductUploadDto>, ProductUploadDtoValidator>();
         services.AddScoped<IValidator<UploadProductVariantModel>, UploadProductVariantModelValidator>();
         services.AddScoped<IValidator<CreateColorDto>, CreateColorDtoValidator>();
+        services.AddScoped<IValidator<CreateCategoryDto>, CreateCategoryDtoValidator>();
+        services.AddScoped<IValidator<CreateSizeDto>, CreateSizeDtoValidator>();
+        /*services.AddValidatorsFromAssemblyContaining<CreateCategoryDtoValidator>();*/
     }
 }

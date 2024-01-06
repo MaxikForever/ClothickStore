@@ -13,6 +13,12 @@ public class CategoryController : ControllerBase
     private readonly IValidatorFactory _validatorFactory;
     private readonly IMediator _mediator;
 
+    public CategoryController(IValidatorFactory validatorFactory, IMediator mediator)
+    {
+        _validatorFactory = validatorFactory;
+        _mediator = mediator;
+    }
+
     [HttpPost]
     public async Task<ActionResult> CreateCategory([FromBody] CreateCategoryDto categoryDto)
     {
@@ -26,7 +32,7 @@ public class CategoryController : ControllerBase
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
         }
 
-        var result = _mediator.Send(new AddCategoryCommand(categoryDto.CategoryName));
+        var result = await _mediator.Send(new AddCategoryCommand(categoryDto.CategoryName));
 
         return Ok(new { Name = result });
     }

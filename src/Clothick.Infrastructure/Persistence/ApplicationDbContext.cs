@@ -17,6 +17,9 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new IdentityRolesConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new SizeConfiguration());
+        modelBuilder.ApplyConfiguration(new ColorConfiguration());
     }
 
     public DbSet<Category> Categories => Set<Category>();

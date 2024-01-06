@@ -31,6 +31,7 @@ public class AddColorCommandHandler : IRequestHandler<AddColorCommand, string>
         await _colorBaseRepository.SaveAsync();
 
         _productVariantService.UpdateCacheWithNewId(CacheKeyConstants.ColorIds, newColor.Id);
+        _productVariantService.UpdateCacheNames(CacheKeyConstants.ColorNames, newColor.Name);
 
         return newColor.Name;
     }

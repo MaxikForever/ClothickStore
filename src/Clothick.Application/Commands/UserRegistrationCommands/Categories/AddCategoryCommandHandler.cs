@@ -30,7 +30,8 @@ public class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, str
         await _categoryBaseRepository.CreateAsync(newCategory);
         await _categoryBaseRepository.SaveAsync();
 
-        _productVariantService.UpdateCacheWithNewId(CacheKeyConstants.ColorIds, newCategory.Id);
+        _productVariantService.UpdateCacheWithNewId(CacheKeyConstants.CategoryIds, newCategory.Id);
+        _productVariantService.UpdateCacheNames(CacheKeyConstants.CategoryNames, newCategory.Name);
 
         return newCategory.Name;
     }

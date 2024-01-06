@@ -26,6 +26,7 @@ public class CreateSizeCommandHandler : IRequestHandler<CreateSizeCommand, strin
         await _sizeBaseRepository.SaveAsync();
 
         _productVariantService.UpdateCacheWithNewId(CacheKeyConstants.SizeIds, newSize.Id);
+        _productVariantService.UpdateCacheNames(CacheKeyConstants.SizeNames, newSize.Name);
 
         return newSize.Name;
     }

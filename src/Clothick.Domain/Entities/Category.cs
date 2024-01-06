@@ -1,6 +1,8 @@
+using Clothick.Contracts.Interfaces.Services;
+
 namespace Clothick.Domain.Entities;
 
-public class Category
+public class Category: IEntity
 {
     public int Id { get; set; }
 
