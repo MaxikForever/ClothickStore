@@ -1,6 +1,8 @@
+using Clothick.Contracts.Interfaces.Services;
+
 namespace Clothick.Domain.Entities;
 
-public class Size
+public class Size: IEntity
 {
     public int Id { get; set; }
 

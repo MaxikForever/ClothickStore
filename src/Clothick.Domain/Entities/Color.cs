@@ -1,6 +1,8 @@
+using Clothick.Contracts.Interfaces.Services;
+
 namespace Clothick.Domain.Entities;
 
-public class Color
+public class Color : IEntity
 {
     public int Id { get; set; }
 

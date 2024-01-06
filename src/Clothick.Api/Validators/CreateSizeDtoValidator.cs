@@ -1,15 +1,21 @@
 using Clothick.Api.DTO;
+using Clothick.Contracts.Interfaces.Services;
+using Clothick.Domain.Constants;
+using Clothick.Domain.Entities;
 using FluentValidation;
 
 namespace Clothick.Api.Validators;
 
 public class CreateSizeDtoValidator : AbstractValidator<CreateSizeDto>
 {
-    public CreateSizeDtoValidator()
+    public CreateSizeDtoValidator(IUniqueService<Size> uniqueService)
     {
         RuleFor(x => x.SizeName)
             .NotEmpty().WithMessage("Size name is required.")
-            .Must(BeValidSize).WithMessage("Invalid size format.");
+            .Must(BeValidSize).WithMessage("Invalid size format.")
+            .MustAsync(async (sizeName, _) =>
+                await uniqueService.IsNameUniqueAsync(CacheKeyConstants.SizeNames, sizeName.ToUpper()))
+            .WithMessage("Size should be unique");
     }
 
 

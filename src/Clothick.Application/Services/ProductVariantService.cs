@@ -35,6 +35,23 @@ public class ProductVariantService : IProductVariantService
         return sizeExists && colorExists;
     }
 
+    public void UpdateCacheNames(string cacheKey, string newName)
+    {
+        HashSet<string> cacheNames;
+        if (_memoryCache.TryGetValue(cacheKey, out cacheNames))
+        {
+            // Add the new ID to the cached set and reset the cache
+            cacheNames.Add(newName);
+            _memoryCache.Set(cacheKey, cacheNames, TimeSpan.FromHours(1));
+        }
+        else
+        {
+            // If the cache entry doesn't exist, create a new one with the new ID
+            cacheNames = new HashSet<string> { newName };
+            _memoryCache.Set(cacheKey, cacheNames, TimeSpan.FromHours(1));
+        }
+    }
+
     public async Task<bool> CheckCategoryIdsValidity(int categoryId)
     {
         // Check for categoryId in cache
