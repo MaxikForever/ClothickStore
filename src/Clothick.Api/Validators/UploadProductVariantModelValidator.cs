@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Clothick.Api.Validators;
 
-public class UploadProductVariantModelValidator : AbstractValidator<UploadProductVariantModel>
+public class UploadProductVariantModelValidator : AbstractValidator<UploadProductVariantDto>
 {
     public UploadProductVariantModelValidator(IProductVariantService productVariantService)
     {

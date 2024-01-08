@@ -1,7 +1,5 @@
 using Clothick.Api.DTO;
-using Clothick.Contracts.Interfaces.Repositories;
 using Clothick.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clothick.Api.Extensions.Mappers;
 

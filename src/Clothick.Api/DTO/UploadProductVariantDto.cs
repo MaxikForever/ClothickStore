@@ -1,6 +1,6 @@
 namespace Clothick.Api.DTO;
 
-public class UploadProductVariantModel
+public class UploadProductVariantDto
 {
     public int SizeId { get; set; }
     public int ColorId { get; set; }
