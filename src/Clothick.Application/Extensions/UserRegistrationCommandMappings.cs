@@ -38,7 +38,9 @@ public static class UploadProductCommandMappings
                 Stock = v.Stock,
                 DiscountedPrice = v.DiscountedPrice,
                 SKU = v.SKU
-            }).ToList()
+            }).ToList(),
+            DateAdded = DateTime.UtcNow.Date,
+            LastUpdated = DateTime.UtcNow.Date
         };
     }
 }

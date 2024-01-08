@@ -1,48 +1,29 @@
-public class TokenService
+public class UniqueService<T> : IUniqueService<T> where T : class, IEntity // IEntity should be an interface or base class that includes a Name property
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IConfiguration _configuration;
+    private readonly IMemoryCache _memoryCache;
+    private readonly IBaseRepository<T> _repository;
 
-    public TokenService(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+    public UniqueService(IMemoryCache memoryCache, IBaseRepository<T> repository)
     {
-        _userManager = userManager;
-        _configuration = configuration;
+        _memoryCache = memoryCache;
+        _repository = repository;
     }
 
-    public async Task<string> GenerateTokenAsync(string username, string password)
+    public async Task<bool> IsNameUniqueAsync(string cacheKey, string name)
     {
-        var user = await _userManager.FindByNameAsync(username);
-        if (user != null && await _userManager.CheckPasswordAsync(user, password))
+        if (_memoryCache.TryGetValue(cacheKey, out List<string> cachedNames))
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]); // Secret key from configuration
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if (cachedNames.Contains(name))
             {
-                Subject = new ClaimsIdentity(new Claim[] 
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, username),
-                    // Add other user-specific claims as needed
-                }),
-                Issuer = _configuration["Jwt:Issuer"], // e.g., "https://yourapp.com"
-                Audience = _configuration["Jwt:Audience"], // e.g., "https://yourappclient.com"
-                Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
-                IssuedAt = DateTime.UtcNow,
-                NotBefore = DateTime.UtcNow,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            // Add user roles or other custom claims
-            var userRoles = await _userManager.GetRolesAsync(user);
-            foreach (var role in userRoles)
-            {
-                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
+                return false; // Name is not unique
             }
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+        }
+        else
+        {
+            cachedNames = await _repository.GetAll().Select(c => ((IEntity)c).Name).ToListAsync();
+            _memoryCache.Set(cacheKey, cachedNames, TimeSpan.FromHours(1)); // Cache for 1 hour
         }
 
-        return null;
+        return !cachedNames.Contains(name);
     }
 }
