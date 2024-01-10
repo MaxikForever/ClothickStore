@@ -12,7 +12,7 @@ public static class ValidatorExtensions
         services.AddScoped<IValidator<UserRegistrationDto>, UserRegistrationDtoValidator>();
         services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
         services.AddScoped<IValidator<ProductUploadDto>, ProductUploadDtoValidator>();
-        services.AddScoped<IValidator<UploadProductVariantModel>, UploadProductVariantModelValidator>();
+        services.AddScoped<IValidator<UploadProductVariantDto>, UploadProductVariantModelValidator>();
         services.AddScoped<IValidator<CreateColorDto>, CreateColorDtoValidator>();
         services.AddScoped<IValidator<CreateCategoryDto>, CreateCategoryDtoValidator>();
         services.AddScoped<IValidator<CreateSizeDto>, CreateSizeDtoValidator>();

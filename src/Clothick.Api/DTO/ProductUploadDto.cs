@@ -7,6 +7,6 @@ public class ProductUploadDto
     public decimal Price { get; set; }
 
     public int CategoryId { get; set; }
-    public List<UploadProductVariantModel> Variants { get; set; }
+    public List<UploadProductVariantDto> Variants { get; set; }
     public List<string> ImageURLs { get; set; }
 }
