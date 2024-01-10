@@ -1,13 +1,9 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
-using Clothick.Application.Commands.ProductVariant;
-using Clothick.Application.Commands.UserRegistrationCommands.Products;
 using Clothick.Application.Queries;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Clothick.Api.Controllers;
 
@@ -35,6 +31,7 @@ public class ProductVariantsController : ControllerBase
 
         return result.Any() ? Ok(result) : NotFound();
     }
+
 
     [HttpPost("{productId:int}/variants")]
     public async Task<ActionResult> AddProductVariants(int productId, [FromBody] UploadProductVariantDto productDto)
