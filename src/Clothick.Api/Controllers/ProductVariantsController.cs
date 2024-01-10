@@ -1,11 +1,13 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Commands.ProductVariant;
+using Clothick.Application.Commands.UserRegistrationCommands.Products;
 using Clothick.Application.Queries;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Clothick.Api.Controllers;
 
@@ -45,8 +47,16 @@ public class ProductVariantsController : ControllerBase
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
         }
 
-        var result = await _mediator.Send(productDto.ToCommand());
+        var mediatorResult = await _mediator.Send(productDto.ToCommand(productId));
 
-        return result.Any() ? Ok(result) : NotFound();
+        if (mediatorResult.Id == 0)
+        {
+            return NotFound("Product Id doesn't exist");
+        }
+
+        var result = mediatorResult.ToDto();
+
+
+        return Ok(result);
     }
 }

@@ -41,6 +41,5 @@ public static class GetProductDtoExtensions
         };
 
         return result;
-
     }
 }

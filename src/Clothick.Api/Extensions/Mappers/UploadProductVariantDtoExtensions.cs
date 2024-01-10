@@ -5,7 +5,7 @@ namespace Clothick.Api.Extensions.Mappers;
 
 public static class UploadProductVariantDtoExtensions
 {
-    public static AddProductVariantsCommand ToCommand(this UploadProductVariantDto dto)
+    public static AddProductVariantsCommand ToCommand(this UploadProductVariantDto dto, int productId)
     {
         return new AddProductVariantsCommand
         (
@@ -13,7 +13,8 @@ public static class UploadProductVariantDtoExtensions
             ColorId: dto.ColorId,
             Stock: dto.Stock,
             DiscountedPrice: dto.DiscountedPrice,
-            SKU: dto.SKU
+            SKU: dto.SKU,
+            ProductId:  productId
         );
     }
 }
