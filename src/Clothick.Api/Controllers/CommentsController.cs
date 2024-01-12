@@ -29,7 +29,28 @@ public class CommentsController : ControllerBase
         _userRepository = userRepository;
     }
 
+    /// <summary>
+    /// Adds a new comment to a product.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /products/{productId}/comments
+    ///     {
+    ///        "content": "Great product!",
+    ///        "starRating": 5
+    ///     }
+    ///
+    /// </remarks>
+    /// <param name="productId">The ID of the product to comment on</param>
+    /// <param name="commentDto">The comment data transfer object</param>
+    /// <response code="200">Returns the newly added comment</response>
+    /// <response code="400">If the item is null, validation fails, or productId not found</response>
+    /// <response code="401">If the user is unauthorized</response>
     [HttpPost("{productId:int}/[controller]")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> AddComment(int productId, [FromBody] AddCommentDto commentDto)
     {
         var validator = _validatorFactory.GetValidator<AddCommentDto>();
@@ -53,7 +74,23 @@ public class CommentsController : ControllerBase
             });
     }
 
+    /// <summary>
+    /// Retrieves comments for a specific product.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     GET /products/{productId}/comments
+    ///
+    /// </remarks>
+    /// <param name="productId">The ID of the product whose comments are to be retrieved</param>
+    /// <response code="200">Returns the comments for the specified product</response>
+    /// <response code="404">If no comments are found for the productId</response>
+    /// <response code="401">If the user is unauthorized</response>
     [HttpGet("{productId:int}/comments")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetComments(int productId)
     {
         var comments = await _mediator.Send(new GetProductCommentsQuery(productId));

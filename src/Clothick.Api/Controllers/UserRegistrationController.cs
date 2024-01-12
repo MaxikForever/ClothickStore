@@ -20,10 +20,31 @@ public class UserRegistrationController : ControllerBase
         _validatorFactory = validatorFactory;
     }
 
+    /// <summary>
+    /// Registers a new user.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /UserRegistration/register
+    ///     {
+    ///        "firstName": "John",
+    ///        "lastName": "Doe",
+    ///         "userName": "john.doe",
+    ///         "email": "johndoe@example.com",
+    ///         "password": "YourSecurePassword123!",
+    ///         "passwordConfirmation": "YourSecurePassword123!"
+    ///     }
+    ///
+    /// </remarks>
+    /// <param name="registrationDto">DTO for user registration</param>
+    /// <response code="200">If the user is successfully registered</response>
+    /// <response code="400">If the request is invalid or validation fails</response>
+    /// <response code="500">If an internal server error occurs</response>
     [HttpPost("register")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Post(UserRegistrationDto registrationDto)
     {
         var validator = _validatorFactory.GetValidator<UserRegistrationDto>();
@@ -41,29 +62,47 @@ public class UserRegistrationController : ControllerBase
         if (result.Succeeded)
         {
             return Ok(new
-                { Code = StatusCodes.Status200OK, Message = "New Account has been Successfully Registered " });
+                { Code = StatusCodes.Status200OK, Message = "New Account has been Successfully Registered" });
         }
 
         return BadRequest(result.Errors);
     }
 
+    /// <summary>
+    /// Logs in a registered user.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /UserRegistration/login
+    ///     {
+    ///        "userName": "john.doe",
+    ///        "password": "YourSecurePassword123!"
+    ///     }
+    ///
+    /// </remarks>
+    /// <param name="loginDto">DTO for user login</param>
+    /// <response code="200">If the login is successful</response>
+    /// <response code="400">If the login request is invalid or validation fails</response>
+    /// <response code="500">If an internal server error occurs</response>
     [HttpPost("login")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(500)]
-    public async Task<IActionResult> Login(UserLoginDto loginDto)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> Login(UserLoginDto loginDto)
     {
         var validator = _validatorFactory.GetValidator<UserLoginDto>();
         var validationResult = validator.Validate(loginDto);
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors.Select(e =>  new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
+            return Task.FromResult<IActionResult>(
+                BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage })));
         }
 
         var loginCommand = loginDto.ToCommand();
 
         var token = _mediator.Send(loginCommand);
 
-        return Ok(new { JwtToken = token });
+        return Task.FromResult<IActionResult>(Ok(new { JwtToken = token }));
     }
 }
