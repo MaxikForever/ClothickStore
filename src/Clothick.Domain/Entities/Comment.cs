@@ -4,6 +4,7 @@ public class Comment
 {
     public int Id { get; set; }
     public string Content { get; set; }
+    public decimal StarRating { get; set; }
     public DateTime DatePosted { get; set; }
 
     public int ProductRatingId { get; set; }

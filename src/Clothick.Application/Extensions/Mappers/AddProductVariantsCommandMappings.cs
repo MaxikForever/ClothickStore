@@ -1,3 +1,4 @@
+using Clothick.Application.Commands.Comment;
 using Clothick.Application.Commands.ProductVariant;
 using Clothick.Domain.Entities;
 
@@ -15,6 +16,21 @@ public static class AddProductVariantsCommandMappings
             Stock = request.Stock,
             DiscountedPrice = request.DiscountedPrice,
             SKU = request.SKU
+        };
+    }
+}
+
+public static class AddCommentsCommandMappings
+{
+    public static Comment ToEntity(this AddCommentCommand command, int? productRatingId, Guid userId)
+    {
+        return new Comment
+        {
+            Content = command.Content,
+            StarRating = command.StarRating,
+            DatePosted = DateTime.UtcNow,
+            ProductRatingId = (int)productRatingId!,
+            UserId = userId
         };
     }
 }

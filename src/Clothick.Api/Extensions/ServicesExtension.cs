@@ -15,5 +15,7 @@ public static class ServicesExtension
         services.AddScoped<IUniqueService<Size>, UniqueService<Size>>();
         services.AddScoped<IUniqueService<Category>, UniqueService<Category>>();
         services.AddScoped<IUniqueService<Color>, UniqueService<Color>>();
+        services.AddScoped<IProductRatingService, ProductRatingService>();
+        services.AddScoped<IUserInfoService, UserInfoService>();
     }
 }

@@ -8,14 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(o => o.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    }));
     builder.Services.AddDatabase(builder.Configuration);
     builder.Services.AddRepositories();
     builder.Services.AddMediator();
@@ -23,18 +15,21 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddAuthenticationService(builder.Configuration);
     builder.Services.AddCustomServices();
     builder.Services.ConfigureServices();
+    builder.Services.AddSwaggerServices();
+    builder.Services.AddLogging();
 }
 
 var app = builder.Build();
 
 
+app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
-
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

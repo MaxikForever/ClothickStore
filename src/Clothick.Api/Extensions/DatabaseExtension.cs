@@ -11,7 +11,10 @@ public static class DatabaseExtension
     public static void AddDatabase(this IServiceCollection serices, IConfiguration configuration)
     {
         serices.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors());
+
 
         serices.AddIdentity<User, IdentityRole<Guid>>(options =>
             {
