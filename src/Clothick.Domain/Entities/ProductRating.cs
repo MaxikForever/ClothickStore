@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Clothick.Domain.Entities;
 
 public class ProductRating

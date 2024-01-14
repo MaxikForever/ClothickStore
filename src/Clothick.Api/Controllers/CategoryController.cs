@@ -13,8 +13,8 @@ namespace Clothick.Api.Controllers;
 [Route("[controller]")]
 public class CategoryController : ControllerBase
 {
-    private readonly IValidatorFactory _validatorFactory;
     private readonly IMediator _mediator;
+    private readonly IValidatorFactory _validatorFactory;
 
     public CategoryController(IValidatorFactory validatorFactory, IMediator mediator)
     {
@@ -23,16 +23,14 @@ public class CategoryController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new category.
+    ///     Creates a new category.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /Category
     ///     {
-    ///        "categoryName": "TShirt"
+    ///     "categoryName": "TShirt"
     ///     }
-    ///
     /// </remarks>
     /// <param name="categoryDto">DTO for creating a category</param>
     /// <response code="200">Returns the newly created category name</response>
@@ -48,10 +46,7 @@ public class CategoryController : ControllerBase
         var validationResult = await validator.ValidateAsync(categoryDto);
 
         if (!validationResult.IsValid)
-
-        {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
-        }
 
         var result = await _mediator.Send(new AddCategoryCommand(categoryDto.CategoryName));
 

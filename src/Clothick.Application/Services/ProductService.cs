@@ -17,10 +17,7 @@ public class ProductService : IProductService
     public async Task<Product?> GetProduct(int id)
     {
         var product = await _productRepository.FindByCondition(p => p.Id == id)
-            .Include(p => p.ProductVariants).ThenInclude(pv => pv.Size)
-            .Include(p => p.ProductVariants).ThenInclude(pv => pv.Color)
             .Include(p => p.ProductRatings).ThenInclude(pr => pr.Comments)
-            .Include(p => p.ProductImages)
             .Include(p => p.Category)
             .FirstOrDefaultAsync();
 

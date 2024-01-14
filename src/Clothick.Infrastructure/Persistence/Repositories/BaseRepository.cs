@@ -11,7 +11,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         ApplicationDbContext = applicationDbContext;
     }
 
-    private ApplicationDbContext ApplicationDbContext { get; set; }
+    private ApplicationDbContext ApplicationDbContext { get; }
 
     public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
     {

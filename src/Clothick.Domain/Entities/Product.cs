@@ -19,7 +19,6 @@ public class Product
     // Navigation properties
 
     public Category Category { get; set; }
-    public ICollection<ProductImage> ProductImages { get; set; }
     public ICollection<ProductVariant> ProductVariants { get; set; }
     public ICollection<ProductRating> ProductRatings { get; set; }
 }

@@ -13,6 +13,14 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     {
     }
 
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Color> Colors => Set<Color>();
+    public DbSet<Product> Products => Set<Product>();
+    public DbSet<ProductRating> ProductRatings => Set<ProductRating>();
+    public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+    public DbSet<Size> Sizes => Set<Size>();
+    public DbSet<Image> Images => Set<Image>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -21,12 +29,4 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
         modelBuilder.ApplyConfiguration(new SizeConfiguration());
         modelBuilder.ApplyConfiguration(new ColorConfiguration());
     }
-
-    public DbSet<Category> Categories => Set<Category>();
-    public DbSet<Color> Colors => Set<Color>();
-    public DbSet<Product> Products => Set<Product>();
-    public DbSet<ProductImage> ProductImages => Set<ProductImage>();
-    public DbSet<ProductRating> ProductRatings => Set<ProductRating>();
-    public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
-    public DbSet<Size> Sizes => Set<Size>();
 }

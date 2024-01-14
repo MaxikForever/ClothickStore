@@ -8,11 +8,11 @@ public static class UserRegistrationDtoExtensions
     public static UserRegistrationCommand ToCommand(this UserRegistrationDto dto)
     {
         return new UserRegistrationCommand(
-            FirstName: dto.FirstName,
-            LastName: dto.LastName,
-            Email: dto.Email,
-            Password: dto.Password,
-            UserName: dto.UserName
+            dto.FirstName,
+            dto.LastName,
+            dto.Email,
+            dto.Password,
+            dto.UserName
         );
     }
 }

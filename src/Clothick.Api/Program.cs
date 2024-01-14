@@ -1,6 +1,6 @@
 using Clothick.Api.Extensions;
 using Clothick.Api.Middleware;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,12 +26,11 @@ app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMiddleware<ExceptionMiddleware>();
-
 app.UseHttpsRedirection();
-
+app.UseCustomStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
 
 app.Run();

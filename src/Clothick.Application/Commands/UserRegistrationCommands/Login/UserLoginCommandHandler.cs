@@ -25,9 +25,7 @@ public class UserLoginCommandHandler : IRequestHandler<UserLoginCommand, string>
     {
         var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, true, false);
         if (!result.Succeeded)
-        {
             throw new InvalidUserLoginException("User login failed due to an invalid name or password.");
-        }
 
         var token = await _tokenService.GenerateTokenAsync(await _userManager.FindByNameAsync(request.Username));
 

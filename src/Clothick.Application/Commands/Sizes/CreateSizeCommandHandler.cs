@@ -8,8 +8,8 @@ namespace Clothick.Application.Commands.UserRegistrationCommands.Sizes;
 
 public class CreateSizeCommandHandler : IRequestHandler<CreateSizeCommand, string>
 {
-    private readonly IBaseRepository<Size> _sizeBaseRepository;
     private readonly IProductVariantService _productVariantService;
+    private readonly IBaseRepository<Size> _sizeBaseRepository;
 
     public CreateSizeCommandHandler(IBaseRepository<Size> sizeBaseRepository,
         IProductVariantService productVariantService)
@@ -20,7 +20,7 @@ public class CreateSizeCommandHandler : IRequestHandler<CreateSizeCommand, strin
 
     public async Task<string> Handle(CreateSizeCommand request, CancellationToken cancellationToken)
     {
-        var newSize = new Size() { Name = request.SizeName.ToUpper() };
+        var newSize = new Size { Name = request.SizeName.ToUpper() };
 
         await _sizeBaseRepository.CreateAsync(newSize);
         await _sizeBaseRepository.SaveAsync();

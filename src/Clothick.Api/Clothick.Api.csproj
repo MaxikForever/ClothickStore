@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="StaticFiles\"/>
+        <Folder Include="Images\"/>
     </ItemGroup>
 
     <PropertyGroup>

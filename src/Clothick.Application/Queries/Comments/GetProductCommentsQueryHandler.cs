@@ -8,8 +8,8 @@ namespace Clothick.Application.Queries.Comments;
 
 public class GetProductCommentsQueryHandler : IRequestHandler<GetProductCommentsQuery, List<Comment>>
 {
-    private readonly IProductRatingService _productRatingService;
     private readonly IBaseRepository<Comment> _commentsRepository;
+    private readonly IProductRatingService _productRatingService;
 
     public GetProductCommentsQueryHandler(IProductRatingService productRatingService,
         IBaseRepository<Comment> commentsRepository)
@@ -23,7 +23,7 @@ public class GetProductCommentsQueryHandler : IRequestHandler<GetProductComments
         var productRatingId = await _productRatingService.GetProductRatingIdByProductIdAsync(request.ProductId);
 
         var comments = await _commentsRepository.FindByCondition(c => c.ProductRatingId == productRatingId)
-            .Select(c => c).ToListAsync(cancellationToken: cancellationToken);
+            .Select(c => c).ToListAsync(cancellationToken);
 
         return comments;
     }

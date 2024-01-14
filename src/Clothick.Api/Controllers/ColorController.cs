@@ -23,16 +23,14 @@ public class ColorController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new color.
+    ///     Creates a new color.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /Color
     ///     {
-    ///        "colorName": "Red"
+    ///     "colorName": "Red"
     ///     }
-    ///
     /// </remarks>
     /// <param name="colorDto">DTO for creating a color</param>
     /// <response code="200">Returns the newly created color name</response>
@@ -48,10 +46,7 @@ public class ColorController : ControllerBase
         var validationResult = await validator.ValidateAsync(colorDto);
 
         if (!validationResult.IsValid)
-
-        {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
-        }
 
         var colorName = colorDto.ColorName;
 

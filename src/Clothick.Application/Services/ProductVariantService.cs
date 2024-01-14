@@ -9,10 +9,10 @@ namespace Clothick.Application.Services;
 
 public class ProductVariantService : IProductVariantService
 {
+    private readonly IBaseRepository<Category> _categoryRepository;
+    private readonly IBaseRepository<Color> _colorRepository;
     private readonly IMemoryCache _memoryCache;
     private readonly IBaseRepository<Size> _sizeRepository;
-    private readonly IBaseRepository<Color> _colorRepository;
-    private readonly IBaseRepository<Category> _categoryRepository;
 
     public ProductVariantService(IMemoryCache memoryCache, IBaseRepository<Size> sizeRepository,
         IBaseRepository<Color> colorRepository, IBaseRepository<Category> categoryRepository)
@@ -26,10 +26,10 @@ public class ProductVariantService : IProductVariantService
     public async Task<bool> CheckIdsValidity(int sizeId, int colorId)
     {
         // Check for sizeId in cache
-        bool sizeExists = await CheckIdInCacheOrDb(_sizeRepository, CacheKeyConstants.SizeIds, sizeId);
+        var sizeExists = await CheckIdInCacheOrDb(_sizeRepository, CacheKeyConstants.SizeIds, sizeId);
 
         // Check for colorId in cache
-        bool colorExists = await CheckIdInCacheOrDb(_colorRepository, CacheKeyConstants.ColorIds, colorId);
+        var colorExists = await CheckIdInCacheOrDb(_colorRepository, CacheKeyConstants.ColorIds, colorId);
 
 
         return sizeExists && colorExists;
@@ -55,23 +55,9 @@ public class ProductVariantService : IProductVariantService
     public async Task<bool> CheckCategoryIdsValidity(int categoryId)
     {
         // Check for categoryId in cache
-        bool categoryExists = await CheckIdInCacheOrDb(_categoryRepository, CacheKeyConstants.CategoryIds, categoryId);
+        var categoryExists = await CheckIdInCacheOrDb(_categoryRepository, CacheKeyConstants.CategoryIds, categoryId);
 
         return categoryExists;
-    }
-
-    private async Task<bool> CheckIdInCacheOrDb<T>(IBaseRepository<T> repository, string cacheKey, int id)
-    {
-        HashSet<int> cacheIds;
-        if (!_memoryCache.TryGetValue(cacheKey, out cacheIds))
-        {
-            var entities = await repository.GetAll().ToListAsync();
-            var ids = entities.Select(e => (int)e.GetType().GetProperty("Id").GetValue(e)).ToList();
-            cacheIds = new HashSet<int>(ids);
-            _memoryCache.Set(cacheKey, cacheIds, TimeSpan.FromHours(1));
-        }
-
-        return cacheIds.Contains(id);
     }
 
     public void UpdateCacheWithNewId(string cacheKey, int newId)
@@ -89,5 +75,19 @@ public class ProductVariantService : IProductVariantService
             cacheIds = new HashSet<int> { newId };
             _memoryCache.Set(cacheKey, cacheIds, TimeSpan.FromHours(1));
         }
+    }
+
+    private async Task<bool> CheckIdInCacheOrDb<T>(IBaseRepository<T> repository, string cacheKey, int id)
+    {
+        HashSet<int> cacheIds;
+        if (!_memoryCache.TryGetValue(cacheKey, out cacheIds))
+        {
+            var entities = await repository.GetAll().ToListAsync();
+            var ids = entities.Select(e => (int)e.GetType().GetProperty("Id").GetValue(e)).ToList();
+            cacheIds = new HashSet<int>(ids);
+            _memoryCache.Set(cacheKey, cacheIds, TimeSpan.FromHours(1));
+        }
+
+        return cacheIds.Contains(id);
     }
 }

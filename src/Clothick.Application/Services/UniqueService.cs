@@ -1,7 +1,5 @@
 using Clothick.Contracts.Interfaces.Repositories;
 using Clothick.Contracts.Interfaces.Services;
-using Clothick.Domain.Constants;
-using Clothick.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -9,8 +7,8 @@ namespace Clothick.Application.Services;
 
 public class UniqueService<T> : IUniqueService<T> where T : class, IEntity
 {
-    private readonly IMemoryCache _memoryCache;
     private readonly IBaseRepository<T> _colorRepository;
+    private readonly IMemoryCache _memoryCache;
 
     public UniqueService(IMemoryCache memoryCache, IBaseRepository<T> colorRepository)
     {
@@ -18,15 +16,12 @@ public class UniqueService<T> : IUniqueService<T> where T : class, IEntity
         _colorRepository = colorRepository;
     }
 
-    public async Task<bool> IsNameUniqueAsync(string cacheKey,string names)
+    public async Task<bool> IsNameUniqueAsync(string cacheKey, string names)
     {
         if (_memoryCache.TryGetValue(cacheKey, out List<string> cachedNames))
         {
             // Check the cache first
-            if (cachedNames.Contains(names))
-            {
-                return false; // name is not unique
-            }
+            if (cachedNames.Contains(names)) return false; // name is not unique
         }
         else
         {
@@ -37,6 +32,4 @@ public class UniqueService<T> : IUniqueService<T> where T : class, IEntity
 
         return !cachedNames.Contains(names);
     }
-
-
 }

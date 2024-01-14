@@ -7,13 +7,14 @@ public static class GetProductVariantDtoExtensions
 {
     public static GetProductVariantDto ToDto(this ProductVariant product)
     {
-        return new GetProductVariantDto()
+        return new GetProductVariantDto
         {
             Size = product.Size.Name,
             Color = product.Color.Name,
             Stock = product.Stock,
             DiscountedPrice = product.DiscountedPrice,
-            SKU = product.SKU
+            SKU = product.SKU,
+            Images = product.Images.Select(img => img.ImagePath).ToList()
         };
     }
 }

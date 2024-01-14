@@ -1,5 +1,3 @@
-using Clothick.Domain.Entities;
-
 namespace Clothick.Api.DTO;
 
 public class GetCommentDto

@@ -12,8 +12,8 @@ namespace Clothick.Api.Controllers;
 [Route("products/")]
 public class ProductVariantsController : ControllerBase
 {
-    private readonly IValidatorFactory _validatorFactory;
     private readonly IMediator _mediator;
+    private readonly IValidatorFactory _validatorFactory;
 
     public ProductVariantsController(IValidatorFactory validatorFactory, IMediator mediator)
     {
@@ -22,13 +22,11 @@ public class ProductVariantsController : ControllerBase
     }
 
     /// <summary>
-    /// Retrieves variants for a specific product.
+    ///     Retrieves variants for a specific product.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     GET /products/{productId}/variants
-    ///
     /// </remarks>
     /// <param name="productId">The ID of the product whose variants are to be retrieved</param>
     /// <response code="200">Returns the product variants for the specified product</response>
@@ -49,20 +47,18 @@ public class ProductVariantsController : ControllerBase
 
 
     /// <summary>
-    /// Adds new variants to a product.
+    ///     Adds new variants to a product.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /products/{productId}/variants
     ///     {
-    ///        "sizeId": 1,
-    ///        "colorId": 2,
-    ///        "stock": 100,
-    ///        "discountedPrice": 15.99,
-    ///        "SKU": "SKU12345"
+    ///     "sizeId": 1,
+    ///     "colorId": 2,
+    ///     "stock": 100,
+    ///     "discountedPrice": 15.99,
+    ///     "SKU": "SKU12345"
     ///     }
-    ///
     /// </remarks>
     /// <param name="productId">The ID of the product to which variants are added</param>
     /// <param name="productDto">DTO for uploading product variants</param>
@@ -76,22 +72,17 @@ public class ProductVariantsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> AddProductVariants(int productId, [FromBody] UploadProductVariantDto productDto)
+    public async Task<ActionResult> AddProductVariants(int productId, [FromForm] UploadProductVariantDto productDto)
     {
         var validator = _validatorFactory.GetValidator<UploadProductVariantDto>();
         var validationResult = await validator.ValidateAsync(productDto);
 
         if (!validationResult.IsValid)
-        {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
-        }
 
         var mediatorResult = await _mediator.Send(productDto.ToCommand(productId));
 
-        if (mediatorResult.Id == 0)
-        {
-            return NotFound("Product Id doesn't exist");
-        }
+        if (mediatorResult.Id == 0) return NotFound("Product Id doesn't exist");
 
         var result = mediatorResult.ToDto();
 

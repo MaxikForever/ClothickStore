@@ -2,7 +2,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Clothick.Application\Clothick.Application.csproj"/>
-        <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj" />
+        <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

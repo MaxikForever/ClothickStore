@@ -1,4 +1,3 @@
-using Clothick.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

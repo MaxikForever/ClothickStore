@@ -1,5 +1,4 @@
 using Clothick.Application.Extensions;
-using Clothick.Contracts.Interfaces.Repositories;
 using Clothick.Domain.Constants;
 using Clothick.Domain.Entities;
 using MediatR;
@@ -9,8 +8,8 @@ namespace Clothick.Application.Commands.UserRegistrationCommands;
 
 public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCommand, IdentityResult>
 {
-    private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<User> _userManager;
 
     public UserRegistrationCommandHandler(UserManager<User> userManager, SignInManager<User> signInManager)
     {
@@ -25,10 +24,7 @@ public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCo
         if (result.Succeeded)
         {
             var userCreation = await _userManager.AddToRoleAsync(user, RolesConstants.User);
-            if (userCreation.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-            }
+            if (userCreation.Succeeded) await _signInManager.SignInAsync(user, false);
         }
 
         return result;

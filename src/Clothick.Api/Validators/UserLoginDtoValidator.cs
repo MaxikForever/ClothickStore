@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Clothick.Api.Validators;
 
-public class UserLoginDtoValidator: AbstractValidator<UserLoginDto>
+public class UserLoginDtoValidator : AbstractValidator<UserLoginDto>
 {
     public UserLoginDtoValidator()
     {

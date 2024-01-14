@@ -2,15 +2,14 @@ using Clothick.Application.Extensions;
 using Clothick.Contracts.Interfaces.Repositories;
 using Clothick.Contracts.Interfaces.Services;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clothick.Application.Commands.Comment;
 
 public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Domain.Entities.Comment>
 {
-    private readonly IUserInfoService _userInfoService;
     private readonly IBaseRepository<Domain.Entities.Comment> _commentRepository;
     private readonly IProductRatingService _productRatingService;
+    private readonly IUserInfoService _userInfoService;
 
     public AddCommentCommandHandler(IUserInfoService userInfoService,
         IBaseRepository<Domain.Entities.Comment> commentRepository, IProductRatingService productRatingService)

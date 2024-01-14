@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
 namespace Clothick.Api.DTO;
 
 public class UserRegistrationDto

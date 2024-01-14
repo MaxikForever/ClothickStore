@@ -12,8 +12,8 @@ namespace Clothick.Api.Controllers;
 [Route("[controller]")]
 public class SizeController : ControllerBase
 {
-    private readonly IValidatorFactory _validatorFactory;
     private readonly IMediator _mediator;
+    private readonly IValidatorFactory _validatorFactory;
 
     public SizeController(IValidatorFactory validatorFactory, IMediator mediator)
     {
@@ -22,16 +22,14 @@ public class SizeController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new size.
+    ///     Creates a new size.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /Size
     ///     {
-    ///        "sizeName": "Medium"
+    ///     "sizeName": "Medium"
     ///     }
-    ///
     /// </remarks>
     /// <param name="sizeNameDto">DTO for creating a size</param>
     /// <response code="200">Returns the newly created size name</response>
@@ -47,10 +45,7 @@ public class SizeController : ControllerBase
         var validationResult = await validator.ValidateAsync(sizeNameDto);
 
         if (!validationResult.IsValid)
-
-        {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
-        }
 
         var result = await _mediator.Send(new CreateSizeCommand(sizeNameDto.SizeName));
 

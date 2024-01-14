@@ -22,15 +22,10 @@ public class CreateSizeDtoValidator : AbstractValidator<CreateSizeDto>
     private bool BeValidSize(string sizeName)
     {
         // Check for shoe sizes like "42", "43", etc.
-        if (int.TryParse(sizeName, out int numericSize))
-        {
-            return numericSize >= 15 && numericSize <= 60;
-        }
+        if (int.TryParse(sizeName, out var numericSize)) return numericSize >= 15 && numericSize <= 60;
 
         // Check for clothing sizes like "XXL", "M", "S", etc.
         var validClothingSizes = new HashSet<string> { "XS", "S", "M", "L", "XL", "XXL", "XXXL" };
         return validClothingSizes.Contains(sizeName.ToUpper());
     }
-
-
 }

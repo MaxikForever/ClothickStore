@@ -1,3 +1,6 @@
+using System.Net.Mime;
+using Microsoft.AspNetCore.Http;
+
 namespace Clothick.Domain.Entities;
 
 public class ProductVariant
@@ -16,7 +19,11 @@ public class ProductVariant
 
     public string SKU { get; set; }
 
+    public int ImageId { get; set; }
+
     // Navigation properties
+    public ICollection<Image> Images { get; set; }
+
     public Product Product { get; set; }
     public Size Size { get; set; }
     public Color Color { get; set; }

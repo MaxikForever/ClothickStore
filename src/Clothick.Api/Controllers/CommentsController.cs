@@ -1,4 +1,3 @@
-using System.Reflection;
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Queries.Comments;
@@ -8,7 +7,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clothick.Api.Controllers;
 
@@ -18,8 +16,8 @@ namespace Clothick.Api.Controllers;
 public class CommentsController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly IValidatorFactory _validatorFactory;
     private readonly IBaseRepository<User> _userRepository;
+    private readonly IValidatorFactory _validatorFactory;
 
     public CommentsController(IMediator mediator, IValidatorFactory validatorFactory,
         IBaseRepository<User> userRepository)
@@ -30,17 +28,15 @@ public class CommentsController : ControllerBase
     }
 
     /// <summary>
-    /// Adds a new comment to a product.
+    ///     Adds a new comment to a product.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /products/{productId}/comments
     ///     {
-    ///        "content": "Great product!",
-    ///        "starRating": 5
+    ///     "content": "Great product!",
+    ///     "starRating": 5
     ///     }
-    ///
     /// </remarks>
     /// <param name="productId">The ID of the product to comment on</param>
     /// <param name="commentDto">The comment data transfer object</param>
@@ -57,10 +53,8 @@ public class CommentsController : ControllerBase
         var validationResult = await validator.ValidateAsync(commentDto);
 
         if (!validationResult.IsValid)
-        {
             return BadRequest(
                 validationResult.Errors.Select(er => new { er.ErrorCode, er.PropertyName, er.ErrorMessage }));
-        }
 
 
         var newComment = await _mediator.Send(commentDto.ToCommand(productId));
@@ -75,13 +69,11 @@ public class CommentsController : ControllerBase
     }
 
     /// <summary>
-    /// Retrieves comments for a specific product.
+    ///     Retrieves comments for a specific product.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     GET /products/{productId}/comments
-    ///
     /// </remarks>
     /// <param name="productId">The ID of the product whose comments are to be retrieved</param>
     /// <response code="200">Returns the comments for the specified product</response>
@@ -96,13 +88,11 @@ public class CommentsController : ControllerBase
         var comments = await _mediator.Send(new GetProductCommentsQuery(productId));
 
         if (!comments.Any())
-        {
             return NotFound(new
             {
                 ErrorCode = StatusCodes.Status404NotFound, PropertyName = "productId",
                 ErrorMessage = "ProductId not found"
             });
-        }
 
         var result = comments.ToDtoList(_userRepository);
 

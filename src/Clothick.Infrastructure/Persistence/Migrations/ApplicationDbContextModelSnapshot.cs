@@ -243,6 +243,28 @@ namespace Clothick.Infrastructure.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("Clothick.Domain.Entities.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -276,28 +298,6 @@ namespace Clothick.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Clothick.Domain.Entities.ProductImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.ProductRating", b =>
@@ -337,6 +337,9 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.Property<decimal?>("DiscountedPrice")
                         .HasColumnType("numeric");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("integer");
@@ -748,22 +751,22 @@ namespace Clothick.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8a264558-d221-4f2c-b4b4-b42144703f5a"),
-                            ConcurrencyStamp = "1fa358dd-c8f2-494d-ab2e-1b829e0ff974",
+                            Id = new Guid("e6f0ee4a-ac87-4575-bdad-0a4558a0302a"),
+                            ConcurrencyStamp = "cb8e9f4a-f3d9-4cf6-b0bb-04de323a1081",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = new Guid("2e3c96d7-53b1-46d4-9490-b53f97b48fd3"),
-                            ConcurrencyStamp = "d8db6c6e-04bd-4cf8-903b-192683f085cd",
+                            Id = new Guid("b018b906-4197-4397-927c-d11176efdc1b"),
+                            ConcurrencyStamp = "535883eb-a85d-4da6-9432-d93ce8166679",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("101ea5a1-bfd3-43b5-a18f-1da02c410f03"),
-                            ConcurrencyStamp = "adc22a82-bb17-4273-869f-858e05ff8b7f",
+                            Id = new Guid("05795a24-d716-4d25-a193-21f7d056f962"),
+                            ConcurrencyStamp = "66295818-6df7-45c6-9193-dbf897bbd5df",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -891,6 +894,17 @@ namespace Clothick.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Clothick.Domain.Entities.Image", b =>
+                {
+                    b.HasOne("Clothick.Domain.Entities.ProductVariant", "ProductVariant")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductVariant");
+                });
+
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
                 {
                     b.HasOne("Clothick.Domain.Entities.Category", "Category")
@@ -900,17 +914,6 @@ namespace Clothick.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Clothick.Domain.Entities.ProductImage", b =>
-                {
-                    b.HasOne("Clothick.Domain.Entities.Product", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.ProductRating", b =>
@@ -1014,8 +1017,6 @@ namespace Clothick.Infrastructure.Migrations
 
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("ProductImages");
-
                     b.Navigation("ProductRatings");
 
                     b.Navigation("ProductVariants");
@@ -1024,6 +1025,11 @@ namespace Clothick.Infrastructure.Migrations
             modelBuilder.Entity("Clothick.Domain.Entities.ProductRating", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Clothick.Domain.Entities.ProductVariant", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Size", b =>

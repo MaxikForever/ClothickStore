@@ -8,8 +8,8 @@ namespace Clothick.Infrastructure.Services;
 
 public class DatabaseMigrationService : BackgroundService
 {
-    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<DatabaseMigrationService> _logger;
+    private readonly IServiceProvider _serviceProvider;
 
     public DatabaseMigrationService(IServiceProvider serviceProvider, ILogger<DatabaseMigrationService> logger)
     {

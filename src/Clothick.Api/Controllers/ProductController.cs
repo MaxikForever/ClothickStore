@@ -1,8 +1,5 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
-using Clothick.Application.Commands.UserRegistrationCommands.Products;
-using Clothick.Contracts.Interfaces.Repositories;
-using Clothick.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +9,7 @@ namespace Clothick.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/")]
 public class ProductController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -26,20 +23,18 @@ public class ProductController : ControllerBase
 
 
     /// <summary>
-    /// Creates a new product.
+    ///     Creates a new product.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /Product
     ///     {
-    ///        "name": "T-Shirt",
-    ///        "description": "A plain t-shirt",
-    ///        "price": 19.99,
-    ///        "categoryId": 1,
-    ///        // Other properties
+    ///     "name": "T-Shirt",
+    ///     "description": "A plain t-shirt",
+    ///     "price": 19.99,
+    ///     "categoryId": 1,
+    ///     // Other properties
     ///     }
-    ///
     /// </remarks>
     /// <param name="productDto">DTO for creating a product</param>
     /// <response code="200">Returns the newly created product</response>
@@ -49,15 +44,13 @@ public class ProductController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> CreateProduct([FromBody] ProductUploadDto productDto)
+    public async Task<IActionResult> CreateProduct(ProductUploadDto productDto)
     {
         var validator = _validatorFactory.GetValidator<ProductUploadDto>();
         var validationResult = await validator.ValidateAsync(productDto);
 
         if (!validationResult.IsValid)
-        {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
-        }
 
         var request = productDto.ToCommand();
 

@@ -7,7 +7,7 @@ public static class UserRegistrationCommandMappings
 {
     public static User ToEntity(this UserRegistrationCommand command)
     {
-        return new User()
+        return new User
         {
             FirstName = command.FirstName,
             LastName = command.LastName,

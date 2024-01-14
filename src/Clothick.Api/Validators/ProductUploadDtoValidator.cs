@@ -8,6 +8,7 @@ namespace Clothick.Api.Validators;
 public class ProductUploadDtoValidator : AbstractValidator<ProductUploadDto>
 {
     private readonly IProductVariantService _productVariantService;
+
     public ProductUploadDtoValidator(IProductVariantService productVariantService)
     {
         _productVariantService = productVariantService;
@@ -25,12 +26,5 @@ public class ProductUploadDtoValidator : AbstractValidator<ProductUploadDto>
             .MustAsync(async (categoryId, _) =>
                 await _productVariantService.CheckCategoryIdsValidity(categoryId))
             .WithMessage("Check the inserted id for category it doesn't exist");
-
-        RuleFor(x => x.ImageURLs)
-            .NotEmpty().WithMessage("Image url can't be empty");
-
-        RuleForEach(x => x.Variants).SetValidator(new UploadProductVariantModelValidator(_productVariantService));
-
-
     }
 }

@@ -1,6 +1,5 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
-using Clothick.Api.Validators;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,21 +20,19 @@ public class UserRegistrationController : ControllerBase
     }
 
     /// <summary>
-    /// Registers a new user.
+    ///     Registers a new user.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /UserRegistration/register
     ///     {
-    ///        "firstName": "John",
-    ///        "lastName": "Doe",
-    ///         "userName": "john.doe",
-    ///         "email": "johndoe@example.com",
-    ///         "password": "YourSecurePassword123!",
-    ///         "passwordConfirmation": "YourSecurePassword123!"
+    ///     "firstName": "John",
+    ///     "lastName": "Doe",
+    ///     "userName": "john.doe",
+    ///     "email": "johndoe@example.com",
+    ///     "password": "YourSecurePassword123!",
+    ///     "passwordConfirmation": "YourSecurePassword123!"
     ///     }
-    ///
     /// </remarks>
     /// <param name="registrationDto">DTO for user registration</param>
     /// <response code="200">If the user is successfully registered</response>
@@ -51,35 +48,29 @@ public class UserRegistrationController : ControllerBase
         var validationResult = await validator.ValidateAsync(registrationDto);
 
         if (!validationResult.IsValid)
-        {
             return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
-        }
 
         var newUser = registrationDto.ToCommand();
 
         var result = await _mediator.Send(newUser);
 
         if (result.Succeeded)
-        {
             return Ok(new
                 { Code = StatusCodes.Status200OK, Message = "New Account has been Successfully Registered" });
-        }
 
         return BadRequest(result.Errors);
     }
 
     /// <summary>
-    /// Logs in a registered user.
+    ///     Logs in a registered user.
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
+    ///     Sample request:
     ///     POST /UserRegistration/login
     ///     {
-    ///        "userName": "john.doe",
-    ///        "password": "YourSecurePassword123!"
+    ///     "userName": "john.doe",
+    ///     "password": "YourSecurePassword123!"
     ///     }
-    ///
     /// </remarks>
     /// <param name="loginDto">DTO for user login</param>
     /// <response code="200">If the login is successful</response>
@@ -94,10 +85,8 @@ public class UserRegistrationController : ControllerBase
         var validator = _validatorFactory.GetValidator<UserLoginDto>();
         var validationResult = validator.Validate(loginDto);
         if (!validationResult.IsValid)
-        {
             return Task.FromResult<IActionResult>(
                 BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage })));
-        }
 
         var loginCommand = loginDto.ToCommand();
 

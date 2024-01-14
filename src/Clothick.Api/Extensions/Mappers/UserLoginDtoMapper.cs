@@ -8,8 +8,8 @@ public static class UserLoginDtoMapper
     public static UserLoginCommand ToCommand(this UserLoginDto userDto)
     {
         return new UserLoginCommand(
-            Username: userDto.UserName,
-            Password: userDto.Password
+            userDto.UserName,
+            userDto.Password
         );
     }
 }

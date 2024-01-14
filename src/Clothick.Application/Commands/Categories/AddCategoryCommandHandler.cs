@@ -25,7 +25,7 @@ public class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, str
     public async Task<string> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
     {
         var capitalizedCategoryName = _textInfo.ToTitleCase(request.CategoryName);
-        var newCategory = new Category() { Name = capitalizedCategoryName };
+        var newCategory = new Category { Name = capitalizedCategoryName };
 
         await _categoryBaseRepository.CreateAsync(newCategory);
         await _categoryBaseRepository.SaveAsync();

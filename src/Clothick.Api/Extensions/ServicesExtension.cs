@@ -1,4 +1,3 @@
-using System.Reflection;
 using Clothick.Application.Services;
 using Clothick.Contracts.Interfaces.Services;
 using Clothick.Domain.Entities;
@@ -17,5 +16,6 @@ public static class ServicesExtension
         services.AddScoped<IUniqueService<Color>, UniqueService<Color>>();
         services.AddScoped<IProductRatingService, ProductRatingService>();
         services.AddScoped<IUserInfoService, UserInfoService>();
+        services.AddScoped<IProductImageStorageService, ProductImageStorageService>();
     }
 }

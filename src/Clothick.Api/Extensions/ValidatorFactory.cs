@@ -13,7 +13,7 @@ public class ValidatorFactory : IValidatorFactory
 
     public IValidator<T> GetValidator<T>()
     {
-        Type validatorType = typeof(IValidator<>).MakeGenericType(typeof(T));
+        var validatorType = typeof(IValidator<>).MakeGenericType(typeof(T));
         return _serviceProvider.GetService(validatorType) as IValidator<T>;
     }
 

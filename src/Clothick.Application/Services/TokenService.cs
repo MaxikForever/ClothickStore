@@ -9,10 +9,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Clothick.Application.Services;
 
-public class TokenService: ITokenService
+public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
     private readonly UserManager<User> _userManager;
+
     public TokenService(IConfiguration configuration, UserManager<User> userManager)
     {
         _configuration = configuration;
@@ -22,9 +23,9 @@ public class TokenService: ITokenService
     public async Task<string> GenerateTokenAsync(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes((_configuration["Jwt:SecretKey"]));
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
 
-        var tokenDescriptor = new SecurityTokenDescriptor()
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
@@ -41,10 +42,7 @@ public class TokenService: ITokenService
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         var userRoles = await _userManager.GetRolesAsync(user);
-        foreach (var role in userRoles)
-        {
-            tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
-        }
+        foreach (var role in userRoles) tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);

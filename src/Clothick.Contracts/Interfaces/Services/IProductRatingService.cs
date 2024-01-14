@@ -1,5 +1,3 @@
-using Clothick.Domain.Entities;
-
 namespace Clothick.Contracts.Interfaces.Services;
 
 public interface IProductRatingService
@@ -10,4 +8,3 @@ public interface IProductRatingService
 
     Task CreateInitialProductRatingAsync(int productId);
 }
-

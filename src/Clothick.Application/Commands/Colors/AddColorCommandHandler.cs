@@ -4,15 +4,14 @@ using Clothick.Contracts.Interfaces.Services;
 using Clothick.Domain.Constants;
 using Clothick.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clothick.Application.Commands.UserRegistrationCommands.Colors;
 
 public class AddColorCommandHandler : IRequestHandler<AddColorCommand, string>
 {
     private readonly IBaseRepository<Color> _colorBaseRepository;
-    private readonly TextInfo _textInfo;
     private readonly IProductVariantService _productVariantService;
+    private readonly TextInfo _textInfo;
 
     public AddColorCommandHandler(IBaseRepository<Color> colorBaseRepository,
         IProductVariantService productVariantService)
@@ -25,7 +24,7 @@ public class AddColorCommandHandler : IRequestHandler<AddColorCommand, string>
     public async Task<string> Handle(AddColorCommand request, CancellationToken cancellationToken)
     {
         var capitalizedColorName = _textInfo.ToTitleCase(request.ColorName);
-        var newColor = new Color() { Name = capitalizedColorName };
+        var newColor = new Color { Name = capitalizedColorName };
 
         await _colorBaseRepository.CreateAsync(newColor);
         await _colorBaseRepository.SaveAsync();

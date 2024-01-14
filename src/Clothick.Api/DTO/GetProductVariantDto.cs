@@ -11,4 +11,6 @@ public class GetProductVariantDto
     public decimal? DiscountedPrice { get; set; }
 
     public string SKU { get; set; }
+
+    public List<string> Images { get; set; }
 }

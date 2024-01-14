@@ -46,7 +46,7 @@ public class ProductRatingService : IProductRatingService
 
     public async Task CreateInitialProductRatingAsync(int productId)
     {
-        var newRating = new ProductRating()
+        var newRating = new ProductRating
         {
             ProductID = productId,
             StarRating = 0,
@@ -56,6 +56,5 @@ public class ProductRatingService : IProductRatingService
         _productRatingRepository.CreateAsync(newRating);
 
         await _productRatingRepository.SaveAsync();
-
     }
 }

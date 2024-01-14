@@ -1,10 +1,8 @@
 using Clothick.Api.DTO;
-using Clothick.Contracts.Interfaces.Repositories;
 using Clothick.Contracts.Interfaces.Services;
 using Clothick.Domain.Constants;
 using Clothick.Domain.Entities;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clothick.Api.Validators;
 

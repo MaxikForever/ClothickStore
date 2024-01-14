@@ -10,22 +10,19 @@ public class SizeConfiguration : IEntityTypeConfiguration<Size>
     {
         var sizes = new List<Size>
         {
-            new Size { Id = 20, Name = "XXXL" },
-            new Size { Id = 21, Name = "XXL" },
-            new Size { Id = 22, Name = "XL" },
-            new Size { Id = 23, Name = "L" },
-            new Size { Id = 24, Name = "M" },
-            new Size { Id = 25, Name = "S" },
-            new Size { Id = 26, Name = "XS" }
+            new() { Id = 20, Name = "XXXL" },
+            new() { Id = 21, Name = "XXL" },
+            new() { Id = 22, Name = "XL" },
+            new() { Id = 23, Name = "L" },
+            new() { Id = 24, Name = "M" },
+            new() { Id = 25, Name = "S" },
+            new() { Id = 26, Name = "XS" }
         };
 
-        int currentId = 27; // Starting ID for numeric sizes
+        var currentId = 27; // Starting ID for numeric sizes
 
         // Adding numeric sizes from 15 to 60
-        for (int i = 15; i <= 60; i++)
-        {
-            sizes.Add(new Size { Id = currentId++, Name = i.ToString() });
-        }
+        for (var i = 15; i <= 60; i++) sizes.Add(new Size { Id = currentId++, Name = i.ToString() });
 
         builder.HasData(sizes);
     }

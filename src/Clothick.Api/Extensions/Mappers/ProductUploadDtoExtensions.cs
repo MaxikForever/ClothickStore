@@ -9,22 +9,10 @@ public static class ProductUploadDtoExtensions
     public static UploadProductCommand ToCommand(this ProductUploadDto dto)
     {
         return new UploadProductCommand(
-            new Product()
-            {
-                BrandName = dto.BrandName,
-                Description = dto.Description,
-                Price = dto.Price,
-                CategoryId = dto.CategoryId,
-                ProductImages = dto.ImageURLs.Select(url => new ProductImage { ImageURL = url.ToString() })
-                    .ToList(),
-                ProductVariants = dto.Variants.Select(v => new ProductVariant
-                {
-                    SizeID = v.SizeId,
-                    ColorID = v.ColorId,
-                    Stock = v.Stock,
-                    DiscountedPrice = v.DiscountedPrice,
-                    SKU = v.SKU,
-                }).ToList()
-            });
+            BrandName: dto.BrandName,
+            Description: dto.Description,
+            Price: dto.Price,
+            CategoryId: dto.CategoryId
+        );
     }
 }
