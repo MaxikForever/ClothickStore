@@ -1,5 +1,6 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
+using Clothick.Application.Queries.Products;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -60,4 +61,18 @@ public class ProductController : ControllerBase
 
         return Ok(result);
     }
+
+
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetProducts()
+    {
+        var products = await _mediator.Send(new GetProductsQuery());
+
+        return Ok(products.ToDtoList());
+    }
+
 }
