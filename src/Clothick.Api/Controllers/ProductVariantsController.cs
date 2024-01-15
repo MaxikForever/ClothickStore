@@ -1,6 +1,7 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Queries;
+using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -66,7 +67,7 @@ public class ProductVariantsController : ControllerBase
     /// <response code="400">If the item is null, validation fails</response>
     /// <response code="404">If the product ID doesn't exist</response>
     /// <response code="401">If the user is unauthorized</response>
-    [Authorize]
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpPost("{productId:int}/variants")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -2,6 +2,7 @@ using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Queries.Comments;
 using Clothick.Contracts.Interfaces.Repositories;
+using Clothick.Domain.CustomExceptions;
 using Clothick.Domain.Entities;
 using FluentValidation;
 using MediatR;
@@ -12,7 +13,7 @@ namespace Clothick.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("products/")]
+[Route("products/productvariant/")]
 public class CommentsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -88,11 +89,10 @@ public class CommentsController : ControllerBase
         var comments = await _mediator.Send(new GetProductCommentsQuery(productId));
 
         if (!comments.Any())
-            return NotFound(new
-            {
-                ErrorCode = StatusCodes.Status404NotFound, PropertyName = "productId",
-                ErrorMessage = "ProductId not found"
-            });
+        {
+            throw new CommentsNotFoundException("Comments for this product do not exist");
+        }
+
 
         var result = comments.ToDtoList(_userRepository);
 

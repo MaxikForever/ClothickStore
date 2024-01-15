@@ -21,6 +21,7 @@ public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCo
     {
         var user = request.ToEntity();
         var result = await _userManager.CreateAsync(user, request.Password);
+
         if (result.Succeeded)
         {
             var userCreation = await _userManager.AddToRoleAsync(user, RolesConstants.User);

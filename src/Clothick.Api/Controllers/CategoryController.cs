@@ -1,5 +1,6 @@
 using Clothick.Api.DTO;
 using Clothick.Application.Commands.UserRegistrationCommands.Categories;
+using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ namespace Clothick.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("/product/[controller]")]
 public class CategoryController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -36,6 +37,7 @@ public class CategoryController : ControllerBase
     /// <response code="200">Returns the newly created category name</response>
     /// <response code="400">If the item is null or validation fails</response>
     /// <response code="401">If user is Unauthorized</response>
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpPost]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(CreateCategoryDto))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]

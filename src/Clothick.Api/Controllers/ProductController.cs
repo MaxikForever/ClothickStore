@@ -1,6 +1,7 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Queries.Products;
+using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +42,7 @@ public class ProductController : ControllerBase
     /// <response code="200">Returns the newly created product</response>
     /// <response code="400">If the item is null, validation fails</response>
     /// <response code="401">If the user is unauthorized</response>
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -63,7 +65,20 @@ public class ProductController : ControllerBase
     }
 
 
-
+    /// <summary>
+    ///     Retrieves a list of products.
+    /// </summary>
+    /// <remarks>
+    ///     Sample request:
+    ///     GET /Product
+    ///
+    ///     This endpoint is accessible only to users with the 'Admin' role.
+    ///     It returns a list of all products.
+    /// </remarks>
+    /// <response code="200">Returns the list of products</response>
+    /// <response code="400">If the request is badly formed</response>
+    /// <response code="401">If the user is unauthorized or not in the 'Admin' role</response>
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -72,7 +87,13 @@ public class ProductController : ControllerBase
     {
         var products = await _mediator.Send(new GetProductsQuery());
 
+        if (!products.Any())
+            return BadRequest(new
+            {
+                ErrorCode = StatusCodes.Status400BadRequest, PropertyName = "Products",
+                ErrorMessage = "Products retrieval failed."
+            });
+
         return Ok(products.ToDtoList());
     }
-
 }

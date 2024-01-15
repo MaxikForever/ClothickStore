@@ -1,5 +1,6 @@
 using Clothick.Api.DTO;
 using Clothick.Application.Commands.UserRegistrationCommands.Colors;
+using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,9 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clothick.Api.Controllers;
 
-[Authorize]
+
 [ApiController]
-[Route("[controller]")]
+[Route("/products/productvariant/[controller]")]
 public class ColorController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -36,6 +37,7 @@ public class ColorController : ControllerBase
     /// <response code="200">Returns the newly created color name</response>
     /// <response code="400">If the item is null or validation fails</response>
     /// <response code="401">If user is Unauthorized</response>
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpPost]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(CreateColorDto))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]

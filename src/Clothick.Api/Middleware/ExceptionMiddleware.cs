@@ -33,7 +33,12 @@ public class ExceptionMiddleware
         var statusCode = (int)HttpStatusCode.InternalServerError;
         var message = "Internal Server Error";
 
-        if (ex.InnerException is BaseException baseException)
+        if (ex is BaseException baseEx)
+        {
+            statusCode = baseEx.StatusCode;
+            message = baseEx.Message;
+        }
+        else if (ex.InnerException is BaseException baseException)
         {
             statusCode = baseException.StatusCode;
             message = baseException.Message;

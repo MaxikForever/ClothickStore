@@ -1,5 +1,6 @@
 using Clothick.Api.DTO;
 using Clothick.Application.Commands.UserRegistrationCommands.Sizes;
+using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ namespace Clothick.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("product/productvariant/[controller]")]
 public class SizeController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -35,6 +36,7 @@ public class SizeController : ControllerBase
     /// <response code="200">Returns the newly created size name</response>
     /// <response code="400">If the item is null or validation fails</response>
     /// <response code="401">If the user is unauthorized</response>
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

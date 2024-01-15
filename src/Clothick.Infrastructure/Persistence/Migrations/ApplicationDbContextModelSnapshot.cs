@@ -36,7 +36,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -130,7 +130,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
 
                     b.HasData(
                         new
@@ -240,7 +240,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comment", (string)null);
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Image", b =>
@@ -262,7 +262,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasIndex("ProductVariantId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
@@ -297,7 +297,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.ProductRating", b =>
@@ -321,7 +321,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("ProductRatings");
+                    b.ToTable("ProductRatings", (string)null);
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.ProductVariant", b =>
@@ -362,7 +362,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasIndex("SizeID");
 
-                    b.ToTable("ProductVariants");
+                    b.ToTable("ProductVariants", (string)null);
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Size", b =>
@@ -379,7 +379,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sizes");
+                    b.ToTable("Sizes", (string)null);
 
                     b.HasData(
                         new
