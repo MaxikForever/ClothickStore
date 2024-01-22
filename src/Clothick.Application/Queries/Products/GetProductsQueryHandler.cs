@@ -20,6 +20,8 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IList<P
             .Include(pr => pr.ProductRatings)
             .ThenInclude(pr => pr.Comments)
             .Include(pr => pr.Category)
+            .Include(pr => pr.ProductVariants)
+            .ThenInclude(pv => pv.Images)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 }

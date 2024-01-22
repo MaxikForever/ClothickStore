@@ -10,6 +10,7 @@ public static class ProductUploadDtoExtensions
     {
         return new UploadProductCommand(
             BrandName: dto.BrandName,
+            Title: dto.Title,
             Description: dto.Description,
             Price: dto.Price,
             CategoryId: dto.CategoryId

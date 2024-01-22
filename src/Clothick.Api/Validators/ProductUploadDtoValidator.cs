@@ -26,5 +26,8 @@ public class ProductUploadDtoValidator : AbstractValidator<ProductUploadDto>
             .MustAsync(async (categoryId, _) =>
                 await _productVariantService.CheckCategoryIdsValidity(categoryId))
             .WithMessage("Check the inserted id for category it doesn't exist");
+
+        RuleFor(x => x.Title).NotEmpty().WithMessage("Title can't be empty")
+            .Length(3, 30).WithMessage("Invalid title length");
     }
 }

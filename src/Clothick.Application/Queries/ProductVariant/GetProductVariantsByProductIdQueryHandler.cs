@@ -23,6 +23,7 @@ public class GetProductVariantsByProductIdQueryHandler : IRequestHandler<GetProd
             .FindByCondition(pv => pv.ProductID == request.ProductId)
             .Include(pv => pv.Size)
             .Include(pv => pv.Color)
+            .Include(pv => pv.Images)
             .AsQueryable()
         );
     }

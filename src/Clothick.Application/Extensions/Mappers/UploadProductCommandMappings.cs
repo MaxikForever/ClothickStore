@@ -10,6 +10,7 @@ public static class UploadProductCommandMappings
         return new Product
         {
             BrandName = request.BrandName,
+            Title = request.Title,
             Description = request.Description,
             Price = request.Price,
             CategoryId = request.CategoryId,

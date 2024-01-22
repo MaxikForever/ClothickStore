@@ -80,18 +80,17 @@ public class UserRegistrationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public Task<IActionResult> Login(UserLoginDto loginDto)
+    public async Task<IActionResult> Login(UserLoginDto loginDto)
     {
         var validator = _validatorFactory.GetValidator<UserLoginDto>();
         var validationResult = validator.Validate(loginDto);
         if (!validationResult.IsValid)
-            return Task.FromResult<IActionResult>(
-                BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage })));
+            return BadRequest(validationResult.Errors.Select(e => new { e.ErrorCode, e.PropertyName, e.ErrorMessage }));
 
         var loginCommand = loginDto.ToCommand();
 
-        var token = _mediator.Send(loginCommand);
+        var token = await _mediator.Send(loginCommand);
 
-        return Task.FromResult<IActionResult>(Ok(new { JwtToken = token }));
+        return (Ok(new { JwtToken = token }));
     }
 }

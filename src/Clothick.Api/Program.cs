@@ -21,12 +21,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-
-app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+});
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
+
 app.UseCustomStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();

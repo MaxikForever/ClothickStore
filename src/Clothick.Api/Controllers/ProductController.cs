@@ -9,15 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clothick.Api.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("[controller]/")]
-public class ProductController : ControllerBase
+public class ProductsController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IValidatorFactory _validatorFactory;
 
-    public ProductController(IMediator mediator, IValidatorFactory validatorFactory)
+    public ProductsController(IMediator mediator, IValidatorFactory validatorFactory)
     {
         _mediator = mediator;
         _validatorFactory = validatorFactory;
@@ -72,17 +71,13 @@ public class ProductController : ControllerBase
     ///     Sample request:
     ///     GET /Product
     ///
-    ///     This endpoint is accessible only to users with the 'Admin' role.
     ///     It returns a list of all products.
     /// </remarks>
     /// <response code="200">Returns the list of products</response>
     /// <response code="400">If the request is badly formed</response>
-    /// <response code="401">If the user is unauthorized or not in the 'Admin' role</response>
-    [Authorize(Roles = RolesConstants.Admin)]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetProducts()
     {
         var products = await _mediator.Send(new GetProductsQuery());
@@ -95,5 +90,27 @@ public class ProductController : ControllerBase
             });
 
         return Ok(products.ToDtoList());
+    }
+
+
+    /// <summary>
+    ///     Retrieves a list of products.
+    /// </summary>
+    /// <remarks>
+    ///     Sample request:
+    ///     GET /Product
+    ///
+    ///     It returns a list of all products.
+    /// </remarks>
+    /// <response code="200">Returns the list of products</response>
+    /// <response code="400">If the request is badly formed</response>
+    [HttpGet("{productId:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetProductById(int productId)
+    {
+        var products = await _mediator.Send(new GetProductByIdQuery(productId));
+
+        return Ok(products.ToDto());
     }
 }

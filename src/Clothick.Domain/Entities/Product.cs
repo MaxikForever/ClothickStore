@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+
 namespace Clothick.Domain.Entities;
 
 public class Product
@@ -7,6 +10,8 @@ public class Product
     public int CategoryId { get; set; }
 
     public string BrandName { get; set; }
+
+    public string  Title { get; set; }
 
     public string Description { get; set; }
 

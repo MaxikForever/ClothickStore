@@ -21,10 +21,12 @@ public static class GetProductDtoExtensions
         {
             Id = product.Id,
             BrandName = product.BrandName,
+            Title = product.Title,
             Description = product.Description,
             Price = product.Price,
             CategoryName = product.Category.Name,
-            ProductRatings = productRatingsDto
+            ProductRatings = productRatingsDto,
+            Image = product.ProductVariants.Select(pv => pv.Images.Select(img => img.ImagePath).FirstOrDefault()).FirstOrDefault()
         };
 
         return result;
@@ -51,10 +53,12 @@ public static class GetProductDtoExtensions
             {
                 Id = product.Id,
                 BrandName = product.BrandName,
+                Title = product.Title,
                 Description = product.Description,
                 Price = product.Price,
                 CategoryName = product.Category.Name,
-                ProductRatings = productRatingsDto
+                ProductRatings = productRatingsDto,
+                Image = product.ProductVariants.Select(pv => pv.Images.Select(im => im.ImagePath).FirstOrDefault()).FirstOrDefault()
             };
 
             getProductsDtoList.Add(getProductDto);

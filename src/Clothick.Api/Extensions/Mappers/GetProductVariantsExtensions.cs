@@ -16,7 +16,8 @@ public static class GetProductVariantsExtensions
             DiscountedPrice = pv.DiscountedPrice,
             Size = pv.Size.Name,
             SKU = pv.SKU,
-            Stock = pv.Stock
+            Stock = pv.Stock,
+            Images = pv.Images.Select(i => i.ImagePath).ToList()
         });
     }
 }
