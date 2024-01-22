@@ -90,4 +90,24 @@ public class ProductVariantsController : ControllerBase
 
         return Ok(result);
     }
+
+
+    [Authorize(Roles = RolesConstants.Admin)]
+    [HttpPatch("variants/{productVariantId:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> UpdateProductVariants(int productVariantId, [FromForm] UpdateProductVariantDto productDto)
+    {
+        var mediatorResult = await _mediator.Send(productDto.ToCommand(productVariantId));
+
+        if (mediatorResult.Id == 0) return NotFound("Product Id doesn't exist");
+
+        var result = mediatorResult.ToDto();
+
+        return Ok(result);
+    }
+
+
 }

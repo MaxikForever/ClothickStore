@@ -1,16 +1,15 @@
 using Clothick.Api.DTO;
-using Clothick.Application.Commands.ProductVariant;
 using Clothick.Application.Commands.UserRegistrationCommands.Products;
 
 namespace Clothick.Api.Extensions.Mappers;
 
-public static class UploadProductVariantDtoExtensions
+public static class UpdateProductVariantDtoExtensions
 {
-    public static UploadProductVariantCommand ToCommand(this UploadProductVariantDto dto, int productVariantId)
+    public static UpdateProductVariantCommand ToCommand(this UpdateProductVariantDto dto, int productVariantId)
     {
-        return new UploadProductVariantCommand
+        return new UpdateProductVariantCommand
         (
-            ProductId: productVariantId,
+            Id: productVariantId,
             SizeId: dto.SizeId,
             ColorId: dto.ColorId,
             Stock: dto.Stock,
