@@ -12,6 +12,7 @@ public static class GetProductVariantsExtensions
         var productVariants = await productVariantQuery.ToListAsync();
         return productVariants.Select(pv => new GetProductVariantDto
         {
+            Id = pv.Id,
             Color = pv.Color.Name,
             DiscountedPrice = pv.DiscountedPrice,
             Size = pv.Size.Name,

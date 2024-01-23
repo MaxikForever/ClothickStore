@@ -9,6 +9,7 @@ public static class GetProductVariantDtoExtensions
     {
         return new GetProductVariantDto
         {
+            Id = product.Id,
             Size = product.Size.Name,
             Color = product.Color.Name,
             Stock = product.Stock,
