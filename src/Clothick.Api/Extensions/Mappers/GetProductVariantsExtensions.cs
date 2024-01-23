@@ -6,10 +6,11 @@ namespace Clothick.Api.Extensions.Mappers;
 
 public static class GetProductVariantsExtensions
 {
-    public static async Task<IEnumerable<GetProductVariantDto>> ToDtoAsync(
+    public static  IEnumerable<GetProductVariantDto> ToDtoAsync(
         this IQueryable<ProductVariant> productVariantQuery)
     {
-        var productVariants = await productVariantQuery.ToListAsync();
+        var productVariants =  productVariantQuery.ToList();
+
         return productVariants.Select(pv => new GetProductVariantDto
         {
             Id = pv.Id,

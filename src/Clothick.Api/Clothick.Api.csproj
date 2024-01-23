@@ -7,22 +7,31 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="11.8.1"/>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.25"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
-        <PackageReference Include="Swashbuckle.AspNetCore"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0"/>
+        <DotNetCliToolReference Include="dotnet-ef" Version="7.0.14" />
+        <PackageReference Include="FluentValidation" Version="11.8.1" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.25" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.14" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Identity.Web" Version="2.13.1" />
+        <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.13.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj"/>
-        <ProjectReference Include="..\Clothick.Application\Clothick.Application.csproj"/>
-        <ProjectReference Include="..\Clothick.Infrastructure\Clothick.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Clothick.Contracts\Clothick.Contracts.csproj" />
+        <ProjectReference Include="..\Clothick.Application\Clothick.Application.csproj" />
+        <ProjectReference Include="..\Clothick.Infrastructure\Clothick.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Images\"/>
+        <Folder Include="Images\" />
     </ItemGroup>
 
     <PropertyGroup>

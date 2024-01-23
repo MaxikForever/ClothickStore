@@ -1,8 +1,14 @@
 using Clothick.Api.Extensions;
 using Clothick.Api.Middleware;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 // Add services to the container.
 {

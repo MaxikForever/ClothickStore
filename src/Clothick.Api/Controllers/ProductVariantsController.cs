@@ -41,7 +41,7 @@ public class ProductVariantsController : ControllerBase
 
         var mediatorResult = await _mediator.Send(query);
 
-        var result = await mediatorResult.ToDtoAsync();
+        var result =  mediatorResult.ToDtoAsync();
 
         return result.Any() ? Ok(result) : NotFound();
     }
@@ -107,6 +107,30 @@ public class ProductVariantsController : ControllerBase
         var result = mediatorResult.ToDto();
 
         return Ok(result);
+    }
+
+    /// <summary>
+    ///     Retrieves distinct color variants for a specific product.
+    /// </summary>
+    /// <remarks>
+    ///     Sample request:
+    ///     GET /products/{productId}/variants
+    /// </remarks>
+    /// <param name="productId">The ID of the product whose variants are to be retrieved</param>
+    /// <response code="200">Returns the product variants for the specified product</response>
+    /// <response code="404">If no product variants are found for the productId</response>
+    [HttpGet("{productId:int}/variants/distinct")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetProductVariantsDistinct(int productId)
+    {
+        var query = new GetProductVariantsByProductIdDistinctQuery(productId);
+
+        var mediatorResult = await _mediator.Send(query);
+
+        var result = mediatorResult.ToDtoAsync();
+
+        return result.Any() ? Ok(result) : NotFound();
     }
 
 

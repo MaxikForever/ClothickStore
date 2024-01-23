@@ -8,7 +8,7 @@ public static class AuthenticationExtensions
 {
     public static void AddAuthenticationService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        /*services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -19,6 +19,6 @@ public static class AuthenticationExtensions
                     ValidateAudience = false,
                     ValidateLifetime = true
                 };
-            });
+            });*/
     }
 }
