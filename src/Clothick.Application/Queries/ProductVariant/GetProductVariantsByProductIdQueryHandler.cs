@@ -21,6 +21,8 @@ public class GetProductVariantsByProductIdQueryHandler : IRequestHandler<GetProd
         return Task.FromResult
         (_productVariantsBaseRepository
             .FindByCondition(pv => pv.ProductID == request.ProductId)
+            .Skip((request.PageNumber -1  ) * request.PageSize)
+            .Take(request.PageSize)
             .Include(pv => pv.Size)
             .Include(pv => pv.Color)
             .Include(pv => pv.Images)

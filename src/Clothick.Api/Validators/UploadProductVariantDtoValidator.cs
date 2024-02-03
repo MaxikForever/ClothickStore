@@ -9,7 +9,7 @@ public class UploadProductVariantDtoValidator : AbstractValidator<UploadProductV
 {
     private readonly IProductVariantService _productVariantService;
 
-    private readonly List<string> _allowedExtensions = new() { ".jpg", ".png", ".jpeg" };
+    private readonly List<string> _allowedExtensions = new() { ".jpg", ".png", ".jpeg", "jfif", "webp"};
     private readonly long _maxFileSize = 5 * 1024 * 1024; // 5 MB
 
     public UploadProductVariantDtoValidator(IProductVariantService productVariantService)

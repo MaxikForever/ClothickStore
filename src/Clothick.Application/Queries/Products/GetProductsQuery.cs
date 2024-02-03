@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Clothick.Application.Queries.Products;
 
-public record GetProductsQuery() : IRequest<IList<Product>>;
+public record GetProductsQuery(int PageNumber, int PageSize) : IRequest<IList<Product>>;

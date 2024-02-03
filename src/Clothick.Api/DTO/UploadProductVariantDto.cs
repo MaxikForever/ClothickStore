@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace Clothick.Api.DTO;
 
 public class UploadProductVariantDto

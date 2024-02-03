@@ -35,13 +35,14 @@ public class ProductVariantsController : ControllerBase
     [HttpGet("{productId:int}/variants")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> GetProductVariants(int productId)
+    public async Task<ActionResult> GetProductVariants(int productId, [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 20)
     {
-        var query = new GetProductVariantsByProductIdQuery(productId);
+        var query = new GetProductVariantsByProductIdQuery(productId, pageNumber, pageSize);
 
         var mediatorResult = await _mediator.Send(query);
 
-        var result =  mediatorResult.ToDtoAsync();
+        var result = mediatorResult.ToDtoAsync();
 
         return result.Any() ? Ok(result) : NotFound();
     }
@@ -98,7 +99,8 @@ public class ProductVariantsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> UpdateProductVariants(int productVariantId, [FromForm] UpdateProductVariantDto productDto)
+    public async Task<ActionResult> UpdateProductVariants(int productVariantId,
+        [FromForm] UpdateProductVariantDto productDto)
     {
         var mediatorResult = await _mediator.Send(productDto.ToCommand(productVariantId));
 
@@ -132,6 +134,4 @@ public class ProductVariantsController : ControllerBase
 
         return result.Any() ? Ok(result) : NotFound();
     }
-
-
 }

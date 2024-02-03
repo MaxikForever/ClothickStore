@@ -78,9 +78,9 @@ public class ProductsController : ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetProducts()
+    public async Task<IActionResult> GetProducts([FromQuery] int pageNumber = 1, [FromQuery]int pageSize = 20)
     {
-        var products = await _mediator.Send(new GetProductsQuery());
+        var products = await _mediator.Send(new GetProductsQuery(pageNumber, pageSize));
 
         if (!products.Any())
             return BadRequest(new
