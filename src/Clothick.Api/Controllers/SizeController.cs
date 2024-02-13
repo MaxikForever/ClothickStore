@@ -53,7 +53,16 @@ public class SizeController : ControllerBase
         return Ok(new { Name = result });
     }
 
-
+    /// <summary>
+    /// Retrieves the sizes of a product by its ID.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /products/{productId}/productvariant/sizes
+    /// </remarks>
+    /// <param name="productId">The ID of the product</param>
+    /// <response code="200">Returns the sizes of the product</response>
+    /// <response code="400">If the product ID doesn't exist</response>
     [HttpGet("product/{productId:int}/productvariant/[controller]")]
     public async Task<ActionResult> GetSizeByProductId(int productId)
     {

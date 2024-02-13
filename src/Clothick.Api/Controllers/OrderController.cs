@@ -1,10 +1,14 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Commands.Order;
+using Clothick.Application.Commands.Order.CloseOrder;
+using Clothick.Contracts.Interfaces.Repositories;
+using Clothick.Domain.Entities;
 using Clothick.Domain.Enums;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clothick.Api.Controllers;
@@ -62,6 +66,21 @@ public class OrderController : ControllerBase
         return Ok(newOrder);
     }
 
+    /// <summary>
+    /// Marks an order as delivered.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// POST /orders/{orderId}/deliver
+    /// </remarks>
+    /// <param name="orderId">The ID of the order to mark as delivered</param>
+    /// <response code="200">Returns a success message indicating that the order was marked as delivered</response>
+    /// <response code="404">If the order with the specified ID is not found</response>
+    [HttpPost("{orderId}/deliver")]
+    public async Task<IActionResult> MarkOrderAsDelivered(int orderId)
+    {
+        var orderResult = await _mediator.Send(new CloseOrderCommand(orderId));
 
-
+        return Ok(new {Result = orderResult});
+    }
 }

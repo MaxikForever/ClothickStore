@@ -92,7 +92,22 @@ public class ProductVariantsController : ControllerBase
         return Ok(result);
     }
 
-
+    /// <summary>
+    /// Updates a product variant.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// PATCH /variants/{productVariantId}
+    /// {
+    ///   // Include fields to update in the request body
+    /// }
+    /// </remarks>
+    /// <param name="productVariantId">The ID of the product variant to update</param>
+    /// <param name="productDto">DTO containing the updated information for the product variant</param>
+    /// <response code="200">Returns the updated product variant</response>
+    /// <response code="400">If the request is invalid</response>
+    /// <response code="401">If the user is unauthorized</response>
+    /// <response code="404">If the product ID doesn't exist</response>
     [Authorize(Roles = RolesConstants.Admin)]
     [HttpPatch("variants/{productVariantId:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -4,6 +4,7 @@ namespace Clothick.Api.DTO;
 
 public class GetOrderDto
 {
+    public int Id { get; set; }
     public OrderStatus Status { get; set; }
 
     public int CustomerId { get; set; }

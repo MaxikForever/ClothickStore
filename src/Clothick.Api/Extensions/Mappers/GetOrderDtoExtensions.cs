@@ -9,6 +9,7 @@ public static class GetOrderDtoExtensions
     {
         return new GetOrderDto
         {
+            Id = order.Id,
             Status = order.Status,
             CustomerId = order.CustomerId,
             Quantity = order.Quantity,

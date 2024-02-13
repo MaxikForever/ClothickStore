@@ -18,6 +18,18 @@ public class AdminActionsController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Assigns the admin role to a user.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// POST /adminactions
+    /// {
+    ///   "userId": "123"
+    /// }
+    /// </remarks>
+    /// <param name="request">Command containing the user ID to assign admin role</param>
+    /// <response code="200">Admin role assigned successfully</response>
     [HttpPost]
     public async Task<IActionResult> AssignAdminRole([FromForm] AssignAdminRoleCommand request)
     {
