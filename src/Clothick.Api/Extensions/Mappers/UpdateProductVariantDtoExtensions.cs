@@ -1,5 +1,6 @@
 using Clothick.Api.DTO;
 using Clothick.Application.Commands.UserRegistrationCommands.Products;
+using Microsoft.AspNetCore.Components;
 
 namespace Clothick.Api.Extensions.Mappers;
 

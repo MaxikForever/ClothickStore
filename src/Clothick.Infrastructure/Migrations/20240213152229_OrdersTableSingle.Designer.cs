@@ -4,6 +4,7 @@ using Clothick.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clothick.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240213152229_OrdersTableSingle")]
+    partial class OrdersTableSingle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,7 +281,7 @@ namespace Clothick.Infrastructure.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductVariantId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -293,7 +295,7 @@ namespace Clothick.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductVariantId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
                 });
@@ -790,22 +792,22 @@ namespace Clothick.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8e410fd0-41d3-4552-9627-9a959fec7c45"),
-                            ConcurrencyStamp = "d2167e10-23d5-45b2-8fa5-03635e8c638c",
+                            Id = new Guid("b6dfb801-386f-4c74-ace7-2e57e9634e30"),
+                            ConcurrencyStamp = "571a5488-6ece-476c-b370-ecdd15dd0017",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = new Guid("08bd78f2-e06a-4bc6-83e1-02265145aed9"),
-                            ConcurrencyStamp = "ea9afecb-c4db-484a-b14e-446fc5d94eb7",
+                            Id = new Guid("73d63060-f506-4c46-b8a4-504acd6103f4"),
+                            ConcurrencyStamp = "3b691c74-1d41-4c40-a5cb-4988d1c4e541",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("b89c4a48-bad2-432f-9aef-017fb89511b0"),
-                            ConcurrencyStamp = "f200227f-a301-41df-bcc2-e3751d7e9b9b",
+                            Id = new Guid("701d4294-6f63-47fe-acf1-ece4acae5b98"),
+                            ConcurrencyStamp = "023df629-52f2-4ade-9783-d63729cb0190",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -946,13 +948,13 @@ namespace Clothick.Infrastructure.Migrations
 
             modelBuilder.Entity("Clothick.Domain.Entities.Order", b =>
                 {
-                    b.HasOne("Clothick.Domain.Entities.ProductVariant", "ProductVariant")
+                    b.HasOne("Clothick.Domain.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductVariantId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductVariant");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Clothick.Domain.Entities.Product", b =>
