@@ -20,6 +20,8 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
     public DbSet<Size> Sizes => Set<Size>();
     public DbSet<Image> Images => Set<Image>();
+    public DbSet<Order> Orders => Set<Order>();
+    public DbSet<OrderDetails> OrderDetails => Set<OrderDetails>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
