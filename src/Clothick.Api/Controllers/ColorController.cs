@@ -1,5 +1,10 @@
+using System.Xml.XPath;
 using Clothick.Api.DTO;
+using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Commands.UserRegistrationCommands.Colors;
+using Clothick.Application.Commands.UserRegistrationCommands.Colors.Delete;
+using Clothick.Application.Queries.Categories;
+using Clothick.Application.Queries.Colors;
 using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
@@ -56,4 +61,35 @@ public class ColorController : ControllerBase
 
         return Ok(new { Name = result });
     }
+
+    /// <summary>
+    /// Retrieves all colors.
+    /// </summary>
+    /// <returns>A list of all colors</returns>
+    /// <response code="200">Returns a list of all colors</response>
+   
+    
+
+    /// <summary>
+    /// Deletes a color by ID.
+    /// </summary>
+    /// <param name="id">ID of the color to delete</param>
+    /// <returns>Boolean indicating success or failure of deletion</returns>
+    /// <response code="200">Successful deletion</response>
+    /// <response code="400">Invalid ID provided</response>
+    /// <response code="401">If the user is unauthorized</response>
+    [Authorize(Roles = RolesConstants.Admin)]
+    [HttpDelete("delete/{id:int}")]
+    public async Task<IActionResult> DeleteColor(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest();
+        }
+
+        await _mediator.Send(new DeleteColorCommand(id));
+
+        return Ok(new {Result = "Item was successfully deleted"});
+    }
+
 }

@@ -1,6 +1,9 @@
 using Clothick.Api.DTO;
+using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Commands.UserRegistrationCommands.Sizes;
+using Clothick.Application.Commands.UserRegistrationCommands.Sizes.Delete;
 using Clothick.Application.Queries.Size;
+using Clothick.Application.Queries.Size.GetAll;
 using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
@@ -66,7 +69,7 @@ public class SizeController : ControllerBase
     [HttpGet("product/{productId:int}/productvariant/[controller]")]
     public async Task<ActionResult> GetSizeByProductId(int productId)
     {
-        var productSizes = await _mediator.Send(new GetProductSizesCommand(productId));
+        var productSizes = await _mediator.Send(new GetProductSizesQuery(productId));
 
         if (!productSizes.Any())
         {
@@ -76,4 +79,42 @@ public class SizeController : ControllerBase
 
         return Ok(productSizes);
     }
+
+    /// <summary>
+    /// Retrieves all sizes.
+    /// </summary>
+    /// <returns>A list of all sizes</returns>
+    /// <response code="200">Returns a list of all sizes</response>
+    [HttpGet("product/productvariant/[controller]")]
+    public async Task<IActionResult> GetAllSizes()
+    {
+        var sizes = await _mediator.Send(new GetAllSizesQuery());
+
+        return Ok(sizes.ToDtoList());
+    }
+
+
+    /// <summary>
+    /// Deletes a size by ID.
+    /// </summary>
+    /// <param name="id">ID of the size to delete</param>
+    /// <returns>Object indicating the result of deletion</returns>
+    /// <response code="200">Successful deletion</response>
+    /// <response code="400">Invalid ID provided</response>
+    /// <response code="401">If the user is unauthorized</response>
+    [Authorize(Roles = RolesConstants.Admin)]
+    [HttpDelete("product/productvariant/size/delete/{id:int}")]
+    public async Task<IActionResult> DeleteSize(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest();
+        }
+
+        await _mediator.Send(new DeleteSizeCommand(id));
+
+        return Ok(new {Result = "Item was successfully deleted"});
+    }
+
+
 }

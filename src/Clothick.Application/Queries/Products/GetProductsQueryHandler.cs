@@ -1,4 +1,5 @@
 using Clothick.Contracts.Interfaces.Repositories;
+using Clothick.Domain.CustomExceptions;
 using Clothick.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,13 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IList<P
 
     public async Task<IList<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
+        if (request.PageSize > 100)
+        {
+            throw new InvalidPageSize("Page size can't be greater than 100");
+        }
+
         return await _productRepository.GetAll()
-            .Skip((request.PageNumber -1  ) * request.PageSize)
+            .Skip((request.PageNumber - 1) * request.PageSize)
             .Take(request.PageSize)
             .Include(pr => pr.ProductRatings)
             .ThenInclude(pr => pr.Comments)

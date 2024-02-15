@@ -83,6 +83,8 @@ public class CategoryController : ControllerBase
     /// <param name="id">The ID of the category to delete.</param>
     /// <response code="200">Returns true if the category is successfully deleted.</response>
     /// <response code="400">If the ID is invalid.</response>
+    /// &lt;response code="401"&gt;If the user is unauthorized&lt;/response&gt;
+    [Authorize(Roles = RolesConstants.Admin)]
     [HttpDelete("delete/{id:int}")]
     public async Task<IActionResult> DeleteCategory(int id)
     {
@@ -93,6 +95,6 @@ public class CategoryController : ControllerBase
 
         await _mediator.Send(new DeleteCategoryCommand(id));
 
-        return Ok(true);
+        return Ok(new { Result = "Item was successfully deleted" });
     }
 }
