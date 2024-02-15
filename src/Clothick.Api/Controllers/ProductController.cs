@@ -1,5 +1,6 @@
 using Clothick.Api.DTO;
 using Clothick.Api.Extensions.Mappers;
+using Clothick.Application.Commands.UserRegistrationCommands.Products.Delete;
 using Clothick.Application.Queries.Products;
 using Clothick.Domain.Constants;
 using FluentValidation;
@@ -113,4 +114,28 @@ public class ProductsController : ControllerBase
 
         return Ok(products.ToDto());
     }
+
+
+    /// <summary>
+    /// Deletes a category by ID.
+    /// </summary>
+    /// <param name="id">ID of the category to delete</param>
+    /// <returns>Object indicating the result of deletion</returns>
+    /// <response code="200">Successful deletion</response>
+    /// <response code="400">Invalid ID provided</response>
+    /// <response code="401">If the user is unauthorized</response>
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("delete/{id:int}")]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest();
+        }
+
+        await _mediator.Send(new DeleteProductCommand(id));
+
+        return Ok(new {Result = "Item was successfully deleted"});
+    }
+
 }
