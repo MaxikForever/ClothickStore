@@ -26,7 +26,7 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, P
 
         if (product is null)
         {
-            throw new InvalidProductId($"A product with Id: {request.ProductId} was not found");
+            throw new InvalidId($"A product with Id: {request.ProductId} was not found");
         }
 
         return product!;

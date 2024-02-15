@@ -1,5 +1,7 @@
 using Clothick.Api.DTO;
+using Clothick.Api.Extensions.Mappers;
 using Clothick.Application.Commands.UserRegistrationCommands.Categories;
+using Clothick.Application.Queries.Categories;
 using Clothick.Domain.Constants;
 using FluentValidation;
 using MediatR;
@@ -53,5 +55,44 @@ public class CategoryController : ControllerBase
         var result = await _mediator.Send(new AddCategoryCommand(categoryDto.CategoryName));
 
         return Ok(new { Name = result });
+    }
+
+    /// <summary>
+    /// Retrieves all categories.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /Category
+    /// </remarks>
+    /// <returns>Returns a list of all categories.</returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        var categories = await _mediator.Send(new GetAllCategoriesQuery());
+
+        return Ok(categories.ToDtoList());
+    }
+
+    /// <summary>
+    /// Deletes a category by its ID.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// DELETE /Category/delete/{id}
+    /// </remarks>
+    /// <param name="id">The ID of the category to delete.</param>
+    /// <response code="200">Returns true if the category is successfully deleted.</response>
+    /// <response code="400">If the ID is invalid.</response>
+    [HttpDelete("delete/{id:int}")]
+    public async Task<IActionResult> DeleteCategory(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest();
+        }
+
+        await _mediator.Send(new DeleteCategoryCommand(id));
+
+        return Ok(true);
     }
 }
